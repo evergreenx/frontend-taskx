@@ -5,6 +5,11 @@ import { Providers } from "./providers";
 import Header from "@/components/ui/header";
 import { Box } from "@chakra-ui/react";
 
+import localFont from 'next/font/local'
+
+
+const myFont = localFont({ src: '../fonts/DegularDemo-Regular/DegularDemo-Regular.otf' })
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -19,7 +24,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={myFont.className}>
         <Box 
         
         h={'100'}

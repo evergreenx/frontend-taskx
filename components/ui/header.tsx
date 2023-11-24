@@ -1,7 +1,7 @@
 "use client";
 import { Box, Flex, Heading, Spacer, Text } from "@chakra-ui/react";
 import Image from "next/image";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   LogoIcon,
   analyticsIcon,
@@ -15,16 +15,14 @@ import {
 } from "@/assets";
 
 import { ListItem, UnorderedList } from "@chakra-ui/react";
+
+import { motion } from "framer-motion";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import HeaderAvatar from "./avatar";
 import UserDropDown from "./userdropdown";
-
-interface LinksInterface {
-  name: string;
-  iconPath: string;
-  path: string;
-}
+import { dropVariant } from "@/variant";
+import API from "@/services/apiService";
 
 const links: LinksInterface[] = [
   {
@@ -59,14 +57,37 @@ const links: LinksInterface[] = [
 
 export default function Header() {
   const pathname = usePathname();
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [userData, setUserData] = useState<UserDataInterface | null>(null);
+
+  useEffect(() => {
+    const fetchuser = async () => {
+      try {
+        const response = await API.getUserData();
+
+        setUserData(response);
+      } catch (error) {
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchuser();
+  }, []);
+
   return (
     <Box
       bg={"#fff"}
+      as={motion.div}
       p={"14px 24px"}
       borderWidth={"2px"}
       borderColor={"#FFFFFF"}
       borderRadius={"100px"}
       boxShadow={"xs"}
+      initial="hidden"
+      animate="visible"
+      exit="exit"
+      variants={dropVariant}
       // height={"64px"}
       display={"flex"}
       flexDirection={"row"}
@@ -78,27 +99,20 @@ export default function Header() {
       </Box>
 
       <Box display={"flex"}>
-        <UnorderedList display={"flex"}>
+        <UnorderedList display={['none' , 'flex']}>
           {links.map((link) => {
             return (
-              <Link
-                color=""
-               
-                key={link.name}
-                href={link.path}
-              >
+              <Link color="" key={link.name} href={link.path}>
                 <ListItem
- className={
-  pathname === link.path
-    ? "active-class-name"
-    : "non-active-class-name"
-}
-
-_hover={{
-  background : '#EFF1F6'
-}}
-
-borderRadius={'100px'}
+                  className={
+                    pathname === link.path
+                      ? "active-class-name"
+                      : "non-active-class-name"
+                  }
+                  _hover={{
+                    background: "#EFF1F6",
+                  }}
+                  borderRadius={"100px"}
                   display={"flex"}
                   alignItems={"center"}
                   justifyItems={"center"}
@@ -136,7 +150,7 @@ borderRadius={'100px'}
           </Box>
         </Flex>
 
-        <UserDropDown />
+        <UserDropDown data={userData} />
       </Flex>
     </Box>
   );

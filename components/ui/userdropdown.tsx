@@ -12,6 +12,7 @@ import {
   Flex,
   background,
   Text,
+  Box,
 } from "@chakra-ui/react";
 
 import Image from "next/image";
@@ -68,7 +69,11 @@ const menuOptions = [
   },
 ];
 
-export default function userdropdown() {
+export default function userdropdown({
+  data,
+}: {
+  data: UserDataInterface | null;
+}) {
   return (
     <Menu>
       <MenuButton
@@ -99,12 +104,47 @@ export default function userdropdown() {
           "0px 12px 24px 6px rgba(129, 139, 165, 0.08), 0px 16px 32px 12px rgba(219, 222, 229, 0.08)"
         }
         backdropBlur={"800px"}
-        position={'relative'}
-        top={'10px'}
+        position={"relative"}
+        top={"15px"}
         borderRadius={"20px"}
         width={"370px"}
         p={"4px"}
       >
+        {data ? (
+          <Flex padding={"24px 16px 14px 16px"} alignItems={"center"}>
+            <Box
+              mr={"12px"}
+              p={"12px 8px"}
+              bgGradient="linear(, #5C6670, #131316)"
+              w={"40px"}
+              display={"flex"}
+              justifyContent={"center"}
+              alignItems={"center"}
+              fontSize={"16x"}
+              h={"40px"}
+              borderRadius={"100px"}
+            >
+              <Text
+                bgClip="text"
+                fontWeight={"600"}
+                bgGradient="linear(to-l, #FFF , #F2F3F5 )"
+              >
+                OJ
+              </Text>
+            </Box>
+
+            <Box>
+              <Text fontSize={"24px"} fontWeight={600}>
+                {data?.first_name + " " + data?.last_name}
+              </Text>
+
+              <Text fontSize={"14px"} fontWeight={500}>
+                {data.email}
+              </Text>
+            </Box>
+          </Flex>
+        ) : null}
+
         {menuOptions.map((menuOption: menuOptionsInterface) => {
           return (
             <MenuItem
@@ -123,7 +163,12 @@ export default function userdropdown() {
             >
               <Flex>
                 <Image src={menuOption.icon} alt={menuIcon.name} />
-                <Text color={"#131316"} ml={"12px"} fontSize={"16px"}>
+                <Text
+                  fontWeight={"600"}
+                  color={"#131316"}
+                  ml={"12px"}
+                  fontSize={"16px"}
+                >
                   {menuOption.name}
                 </Text>
               </Flex>
