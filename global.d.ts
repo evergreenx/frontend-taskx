@@ -21,3 +21,41 @@ interface WalletDetailsInterface {
 declare global {
   UserDataInterface, LinksInterface;
 }
+
+// Transaction type with payment_reference
+interface TransactionWithReference {
+  amount: number;
+  metadata?: {
+    name: string;
+    type: string;
+    email: string;
+    quantity: number;
+    country: string;
+    product_name?: string;
+  };
+  payment_reference: string;
+  status: string;
+  type: string;
+  date: string;
+}
+
+// Transaction type without payment_reference
+interface TransactionWithoutReference {
+  amount: number;
+  metadata?: {
+    name: string;
+    type: string;
+    email: string;
+    quantity: number;
+    country: string;
+    product_name?: string;
+  };
+  status: string;
+  type: string;
+  date: string;
+}
+
+// Create a union type combining both transaction types
+type TransactioniInterface =
+  | TransactionWithReference
+  | TransactionWithoutReference;

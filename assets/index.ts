@@ -20,3 +20,15 @@ export { default as switchIcon } from "./switch.svg";
 export { default as signoutIcon } from "./signout.svg";
 export { default as settingIcon } from "./settings.svg";
 
+export { default as infoIcon } from "./info.svg";
+export { default as expandMoreIcon } from "./expand_more.svg";
+
+export { default as downloadIcon } from "./download.svg";
+
+export { default as depositIcon } from "./depositicon.svg";
+export { default as withdrawalIcon } from "./withdrawalIcon.svg";
+
+
+
+
+

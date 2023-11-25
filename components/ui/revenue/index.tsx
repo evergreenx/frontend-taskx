@@ -3,12 +3,16 @@ import React, { useEffect, useState } from "react";
 import AvailableBalance from "./available-balance";
 import RevenueInfo from "./revenue-info";
 import API from "@/services/apiService";
-import { Flex } from "@chakra-ui/react";
+import { Box, Flex } from "@chakra-ui/react";
+import { motion } from "framer-motion";
+import { blurInVariant } from "@/variant";
+import Transaction from "./transaction";
 
 export default function RevenueContainer() {
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [walletDetails, setWalletDetails] =
-    useState<WalletDetailsInterface | undefined>(undefined);
+  const [walletDetails, setWalletDetails] = useState<
+    WalletDetailsInterface | undefined
+  >(undefined);
 
   useEffect(() => {
     const fetchWalletDetails = async () => {
@@ -25,17 +29,26 @@ export default function RevenueContainer() {
     fetchWalletDetails();
   }, []);
 
-  if (isLoading) {
-    return "loading";
-  }
-
   return (
-    <Flex
- flexDirection={['column' , 'row']}
-    justifyContent={'space-between'}>
-      <AvailableBalance balance={walletDetails?.balance} />
+    <>
+      {isLoading ? (
+        "loading wallets data"
+      ) : (
+        <Flex
+          as={motion.div}
+          initial="hidden"
+          animate="visible"
+          variants={blurInVariant}
+          flexDirection={["column", "row"]}
+          justifyContent={"space-between"}
+        >
+          <AvailableBalance balance={walletDetails?.balance} />
 
-      <RevenueInfo data={walletDetails} />
-    </Flex>
+          <RevenueInfo data={walletDetails} />
+        </Flex>
+      )}
+
+      <Transaction />
+    </>
   );
 }

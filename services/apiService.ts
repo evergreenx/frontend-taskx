@@ -21,6 +21,11 @@ const API = {
   getWalletDetails: async () => {
     return await fetchData<WalletDetailsInterface>("wallet");
   },
+
+
+  getTransactionlList: async () => {
+    return await fetchData<TransactioniInterface[]>("transactions");
+  },
 };
 
 export default API;
