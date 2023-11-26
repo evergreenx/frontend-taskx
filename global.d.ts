@@ -69,3 +69,11 @@ interface TransactionStatusInterface {
   id: number;
   status: string;
 }
+
+
+interface FilterValuesInterface {
+  type: any[]; // Define the type for selected transaction types
+  status: any[]; // Define the type for selected transaction statuses
+  daysRange: any[]; // Define the type for selected date ranges
+  // Add other filter categories as needed
+}

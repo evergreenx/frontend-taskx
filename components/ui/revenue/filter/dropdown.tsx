@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState , useEffect } from "react";
 import { motion } from "framer-motion";
 import { Checkbox, Box, Text, useDisclosure } from "@chakra-ui/react";
 import { expandIcon, expandLessIcon } from "@/assets";
@@ -11,6 +11,11 @@ interface CustomMultiSelectProps<T> {
   label: string;
   displayProperty: keyof T;
 
+  resetFilters: boolean;
+
+  onResetComplete: () => void;
+  
+
   onSelectionChange: (selectedValues: T[]) => void;
 }
 
@@ -19,11 +24,22 @@ const CustomMultiSelect = <T extends Option>({
   label,
   displayProperty,
   onSelectionChange,
+  resetFilters,
+  onResetComplete
 }: CustomMultiSelectProps<T>) => {
+
   const [selectedOptions, setSelectedOptions] = useState<T[]>([]);
 
   const { isOpen, onToggle } = useDisclosure();
 
+
+  useEffect(() => {
+    if (resetFilters) {
+
+      setSelectedOptions([]);
+      onResetComplete(); 
+    }
+  }, [resetFilters, onResetComplete]);
   const handleOptionToggle = (option: T) => {
     if (selectedOptions.some((item) => item.id === option.id)) {
       setSelectedOptions(
@@ -42,7 +58,7 @@ const CustomMultiSelect = <T extends Option>({
     selectedOptions.length > 0 ? selectedOptionsText : `Select ${label}`;
 
   return (
-    <Box className="custom-multiselect">
+    <Box>
       <Box
         style={{
           border: isOpen ? "3px solid #131316 " : "0px",
