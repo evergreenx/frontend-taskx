@@ -55,7 +55,17 @@ interface TransactionWithoutReference {
   date: string;
 }
 
-// Create a union type combining both transaction types
+// union type combining both transaction types
 type TransactioniInterface =
   | TransactionWithReference
   | TransactionWithoutReference;
+
+interface TransactionTypeInterface {
+  id: number;
+  name: string;
+}
+
+interface TransactionStatusInterface {
+  id: number;
+  status: string;
+}

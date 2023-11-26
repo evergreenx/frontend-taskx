@@ -26,9 +26,9 @@ export { default as expandMoreIcon } from "./expand_more.svg";
 export { default as downloadIcon } from "./download.svg";
 
 export { default as depositIcon } from "./depositicon.svg";
+
+export { default as expandIcon } from "./expandmore.svg";
+
+export { default as expandLessIcon } from "./expandless.svg";
+
 export { default as withdrawalIcon } from "./withdrawalIcon.svg";
-
-
-
-
-

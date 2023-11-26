@@ -5,18 +5,13 @@ import {
   withdrawalIcon,
 } from "@/assets";
 import API from "@/services/apiService";
-import { Box, Button, Flex, Text } from "@chakra-ui/react";
+import { Box, Button, Flex, Text, useDisclosure } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 
-import {
-  List,
-  ListItem,
-  ListIcon,
-  OrderedList,
-  UnorderedList,
-} from "@chakra-ui/react";
+import { ListItem, UnorderedList } from "@chakra-ui/react";
 
 import Image from "next/image";
+import FilterModal from "./filter/filter-drawer";
 
 export default function TransactionList() {
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -39,12 +34,15 @@ export default function TransactionList() {
     fetchTransactions();
   }, []);
 
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
   if (isLoading) {
     return "loading transaction";
   }
 
   return (
     <Box>
+      <FilterModal isOpen={isOpen} onOpen={onOpen} onClose={onClose} />
       <Flex
         borderBottomWidth={"1px"}
         pb={"24px"}
@@ -64,6 +62,7 @@ export default function TransactionList() {
 
         <Flex>
           <Button
+            onClick={onOpen}
             borderRadius={"100px"}
             padding={"12px 20px 12px 30px"}
             height={"48px"}
@@ -134,7 +133,10 @@ export default function TransactionList() {
                     {list.metadata?.product_name
                       ? list.metadata.product_name
                       : list.type === "withdrawal"
-                      ? "Cash withdrawal" : list.metadata?.type === 'coffee' && list.status === 'successful' ? 'Buy me a coffee'
+                      ? "Cash withdrawal"
+                      : list.metadata?.type === "coffee" &&
+                        list.status === "successful"
+                      ? "Buy me a coffee"
                       : null}
                   </Text>
 
@@ -162,10 +164,7 @@ export default function TransactionList() {
                 </Box>
               </Flex>
 
-              <Box
-              alignSelf={'self-end'}
-      
-              >
+              <Box alignSelf={"self-end"}>
                 <Text fontWeight={"700"} fontSize={"16px"} color={"#131316"}>
                   {" "}
                   USD {list.amount}
