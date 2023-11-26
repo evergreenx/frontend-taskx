@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Button,
   Drawer,
@@ -23,16 +23,16 @@ const transactionType: TransactionTypeInterface[] = [
 ];
 
 const transactionStatus: TransactionStatusInterface[] = [
-  { id: 1, status: "successful" },
-  { id: 2, status: "pending" },
-  { id: 3, status: "failed" },
+  { id: 1, status: "Successful" },
+  { id: 2, status: "Pending" },
+  { id: 3, status: "Failed" },
 ];
 
 const daysRange = [
   "Today",
   "Last 7 days",
   "This month",
-  "last 3 months",
+  "Last 3 months",
   "This year",
   "All time",
 ];
@@ -63,6 +63,7 @@ export default function FilterModal({
   ) => {
     // Update filters state based on filter type
     setFilters({ ...filters, [filterType]: selectedValues });
+
     console.log("Selected Values:", selectedValues);
   };
 
@@ -119,7 +120,7 @@ export default function FilterModal({
                 <Box
                   // minW={'73px'}
                   fontSize={"14px"}
-                  w={"116px"}
+                  // w={"116px"}
                   fontWeight={"600"}
                   display={"flex"}
                   alignItems={"center"}
@@ -150,6 +151,7 @@ export default function FilterModal({
               Transaction Type
             </Text>
             <MultiSelect
+              filterValues={filters.type}
               options={transactionType}
               label="transaction type"
               displayProperty="name"
@@ -157,7 +159,6 @@ export default function FilterModal({
               onSelectionChange={(selectedValues) =>
                 handleFilter(selectedValues, "type")
               }
-
               onResetComplete={handleResetComplete}
             />
           </Box>
@@ -173,13 +174,13 @@ export default function FilterModal({
             </Text>
             <MultiSelect
               options={transactionStatus}
+              filterValues={filters.status}
               label="transaction status"
               displayProperty="status"
               resetFilters={resetFilters}
               onSelectionChange={(selectedValues) =>
                 handleFilter(selectedValues, "status")
               }
-
               onResetComplete={handleResetComplete}
             />
           </Box>

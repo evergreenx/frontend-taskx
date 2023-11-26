@@ -1,4 +1,4 @@
-import React, { useState , useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Checkbox, Box, Text, useDisclosure } from "@chakra-ui/react";
 import { expandIcon, expandLessIcon } from "@/assets";
@@ -14,7 +14,7 @@ interface CustomMultiSelectProps<T> {
   resetFilters: boolean;
 
   onResetComplete: () => void;
-  
+  filterValues : any;
 
   onSelectionChange: (selectedValues: T[]) => void;
 }
@@ -25,19 +25,17 @@ const CustomMultiSelect = <T extends Option>({
   displayProperty,
   onSelectionChange,
   resetFilters,
-  onResetComplete
+  onResetComplete,
+  filterValues
 }: CustomMultiSelectProps<T>) => {
-
-  const [selectedOptions, setSelectedOptions] = useState<T[]>([]);
+  const [selectedOptions, setSelectedOptions] = useState<T[]>(filterValues);
 
   const { isOpen, onToggle } = useDisclosure();
 
-
   useEffect(() => {
     if (resetFilters) {
-
       setSelectedOptions([]);
-      onResetComplete(); 
+      onResetComplete();
     }
   }, [resetFilters, onResetComplete]);
   const handleOptionToggle = (option: T) => {
@@ -57,6 +55,11 @@ const CustomMultiSelect = <T extends Option>({
   const displayText =
     selectedOptions.length > 0 ? selectedOptionsText : `Select ${label}`;
 
+
+
+  
+
+    console.log(filterValues)
   return (
     <Box>
       <Box
@@ -107,6 +110,7 @@ const CustomMultiSelect = <T extends Option>({
               alignItems="center"
             >
               <Checkbox
+              
                 borderColor={"#DBDEE5"}
                 isChecked={selectedOptions.some(
                   (item) => item.id === option.id
@@ -119,7 +123,6 @@ const CustomMultiSelect = <T extends Option>({
                 fontWeight={"600"}
                 ml={"12px"}
               >
-
                 {/* @ts-ignore */}
                 {option[displayProperty]}
               </Text>
