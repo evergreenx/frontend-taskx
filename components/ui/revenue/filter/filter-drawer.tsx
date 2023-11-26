@@ -14,12 +14,15 @@ import {
 
 import MultiSelect from "./dropdown";
 const transactionType: TransactionTypeInterface[] = [
-  { id: 1, name: "Store Transactions" },
-  { id: 2, name: "Get Tipped " },
-  { id: 3, name: "Withdrawals" },
-  { id: 4, name: "Chargebacks" },
-  { id: 5, name: "Cashbacks" },
-  { id: 6, name: "Refer & Earn" },
+  { id: 1, name: "Store Transactions", type: "" },
+
+  { id: 0, name: "Deposit", type: "deposit" },
+
+  { id: 2, name: "Get Tipped ", type: "tipped" },
+  { id: 3, name: "Withdrawals", type: "withdrawal" },
+  { id: 4, name: "Chargebacks", type: "chargeback" },
+  { id: 5, name: "Cashbacks", type: "cashback" },
+  { id: 6, name: "Refer & Earn", type: "refer" },
 ];
 
 const transactionStatus: TransactionStatusInterface[] = [
@@ -42,20 +45,25 @@ export default function FilterModal({
   onOpen,
   onClose,
   filters,
-  setFilters
+  setFilters,
+  handleApplyFilter,
+  transactionsData,
+  setFilterTransactionsData,
 }: {
   isOpen: boolean;
   onOpen: () => void;
   onClose: () => void;
-  filters : FilterValuesInterface,
-  setFilters : any
+  filters: FilterValuesInterface;
+  setFilters: any;
+  transactionsData: any;
+  handleApplyFilter: () => void;
+  setFilterTransactionsData: any;
 }) {
   const [resetFilters, setResetFilters] = useState<boolean>(false);
 
   const handleResetComplete = () => {
     setResetFilters(false); // Set back to false after reset is done
   };
-
 
   const handleFilter = (
     selectedValues: any[],
@@ -64,10 +72,10 @@ export default function FilterModal({
     // Update filters state based on filter type
     setFilters({ ...filters, [filterType]: selectedValues });
 
-    console.log("Selected Values:", selectedValues);
+    // console.log("Selected Values:", selectedValues);
   };
 
-  console.log(filters);
+  // console.log(filters);
   return (
     <Drawer isOpen={isOpen} onClose={onClose} placement="right">
       <DrawerOverlay
@@ -204,11 +212,14 @@ export default function FilterModal({
                 status: [],
                 daysRange: [],
               });
+
+              setFilterTransactionsData(transactionsData);
             }}
           >
             Clear
           </Button>
           <Button
+            onClick={handleApplyFilter}
             fontSize={"16px"}
             borderRadius={"100px"}
             p={"12px 24px"}

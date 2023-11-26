@@ -63,6 +63,7 @@ type TransactioniInterface =
 interface TransactionTypeInterface {
   id: number;
   name: string;
+  type: string
 }
 
 interface TransactionStatusInterface {

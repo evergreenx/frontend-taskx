@@ -20,6 +20,23 @@ export default function TransactionList() {
     TransactioniInterface[] | undefined
   >(undefined);
 
+  const [filtertransactionsData, setFilterTransactionsData] = useState(transactionsData);
+
+
+  useEffect(() => {
+  
+    if(transactionsData) { 
+
+      setFilterTransactionsData(transactionsData)
+    }
+
+  }, [transactionsData])
+  
+console.log(filtertransactionsData)
+
+console.log(transactionsData)
+
+
   useEffect(() => {
     const fetchTransactions = async () => {
       try {
@@ -49,6 +66,52 @@ export default function TransactionList() {
     0
   );
 
+  //
+
+  const filterTransactions = (
+    transactions: TransactioniInterface[] | undefined,
+    filters: FilterValuesInterface
+  ): TransactioniInterface[] | undefined => {
+    if (!transactions) return undefined;
+  
+    // Extract 'type' and 'status' arrays from filters
+    const typesToFilter = filters.type.map((typeObj) => typeObj.type.toLowerCase());
+
+    console.log(typesToFilter)
+    const statusesToFilter = filters.status.map((statusObj) => statusObj.status.toLowerCase());
+  
+    // Filter transactions based on the extracted 'type' and 'status' arrays
+    return transactions.filter((transaction) => {
+      const lowerCaseType = transaction.type.toLowerCase();
+      const lowerCaseStatus = transaction.status.toLowerCase();
+  
+      // Check if the transaction's type and status match the filtered arrays
+      const typeFilterMatch = filters.type.length === 0 || typesToFilter.includes(lowerCaseType);
+      const statusFilterMatch = statusesToFilter.length === 0 || statusesToFilter.includes(lowerCaseStatus);
+
+      console.log(typeFilterMatch)
+  
+      // Return true if both type and status criteria match the filters
+      return typeFilterMatch && statusFilterMatch;
+    });
+  };
+
+
+
+  const handleApplyFilter = () => {
+
+
+    const filteredTransactions = filterTransactions(filtertransactionsData, filters);
+
+    setFilterTransactionsData(filteredTransactions)
+
+    console.log(filteredTransactions)
+    onClose()
+
+  }
+
+
+
   if (isLoading) {
     return "loading transaction";
   }
@@ -58,10 +121,13 @@ export default function TransactionList() {
       {/* filter drawer */}
       <FilterModal
         filters={filters}
+        handleApplyFilter={handleApplyFilter}
         setFilters={setFilters}
         isOpen={isOpen}
         onOpen={onOpen}
         onClose={onClose}
+        transactionsData={transactionsData}
+        setFilterTransactionsData={setFilterTransactionsData}
       />
       <Flex
         borderBottomWidth={"1px"}
@@ -72,8 +138,8 @@ export default function TransactionList() {
       >
         <Box>
           <Text fontWeight={700} fontSize={"24px"} color={"#131316"}>
-            {transactionsData?.length}{" "}
-            {transactionsData?.length !== 1 ? "Transactions" : "Transaction"}
+            {filtertransactionsData?.length}{" "}
+            {filtertransactionsData?.length !== 1 ? "Transactions" : "Transaction"}
           </Text>
           <Text fontWeight={"500"} fontSize={"14px"} color={"#56616B"}>
             Your transactions for the last 7 days
@@ -82,6 +148,8 @@ export default function TransactionList() {
 
         <Flex>
           <Button
+
+        
             onClick={onOpen}
             borderRadius={"100px"}
             padding={"12px 20px 12px 30px"}
@@ -145,7 +213,7 @@ export default function TransactionList() {
       {/* list */}
 
       <UnorderedList margin={0} mt={"33px"}>
-        {transactionsData?.map((list) => {
+        {filtertransactionsData?.map((list) => {
           return (
             <ListItem
               display={"flex"}
