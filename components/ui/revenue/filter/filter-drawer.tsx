@@ -41,10 +41,14 @@ export default function FilterModal({
   isOpen,
   onOpen,
   onClose,
+  filters,
+  setFilters
 }: {
   isOpen: boolean;
   onOpen: () => void;
   onClose: () => void;
+  filters : FilterValuesInterface,
+  setFilters : any
 }) {
   const [resetFilters, setResetFilters] = useState<boolean>(false);
 
@@ -52,11 +56,7 @@ export default function FilterModal({
     setResetFilters(false); // Set back to false after reset is done
   };
 
-  const [filters, setFilters] = useState<FilterValuesInterface>({
-    type: [],
-    status: [],
-    daysRange: [],
-  });
+
   const handleFilter = (
     selectedValues: any[],
     filterType: keyof FilterValuesInterface
