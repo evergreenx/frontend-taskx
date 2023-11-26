@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 
 import API from "@/services/apiService";
 import { Box } from "@chakra-ui/react";
-import { motion } from 'framer-motion';
+import { motion } from "framer-motion";
 
 import {
   Chart as ChartJS,
@@ -47,7 +47,7 @@ export const options = {
     },
   },
 };
-const transactionData = [
+export const transactionDatax = [
   {
     amount: 500,
     metadata: {
@@ -63,6 +63,38 @@ const transactionData = [
     type: "deposit",
     date: "2022-03-03",
   },
+
+  {
+    amount: 1100,
+    metadata: {
+      name: "badd Doe",
+      type: "digital_product",
+      email: "johndoe@example.com",
+      quantity: 1,
+      country: "Nigeria",
+      product_name: "testss",
+    },
+    payment_reference: "c3f7123f-186f-4a45-b911-76736e9c5937",
+    status: "pending",
+    type: "withdrawal",
+    date: "2022-03-03",
+  },
+
+  {
+    amount: 5100,
+    metadata: {
+      name: "eve Doe",
+      type: "digital_product",
+      email: "johndoe@example.com",
+      quantity: 1,
+      country: "Nigeria",
+      product_name: "testss",
+    },
+    payment_reference: "c3f7123f-186f-4a45-b911-76736e9c5937",
+    status: "failed",
+    type: "tipped",
+    date: "2022-03-03",
+  },
   {
     amount: 400,
     metadata: {
@@ -73,7 +105,7 @@ const transactionData = [
       country: "Ireland",
     },
     payment_reference: "d28db158-0fc0-40cd-826a-4243923444f7",
-    status: "successful",
+    status: "pending",
     type: "deposit",
     date: "2022-03-02",
   },
@@ -96,6 +128,13 @@ const transactionData = [
     amount: 300,
     status: "successful",
     type: "withdrawal",
+    date: "2022-03-01",
+  },
+
+  {
+    amount: 300,
+    status: "successful",
+    type: "tipped",
     date: "2022-03-01",
   },
   {
@@ -136,7 +175,7 @@ const transactionData = [
   },
 ];
 
-const formattedDates = transactionData.map((transaction) => {
+const formattedDates = transactionDatax.map((transaction) => {
   const date = new Date(transaction.date);
   return date.toLocaleDateString("en-US", {
     year: "numeric",
@@ -145,7 +184,7 @@ const formattedDates = transactionData.map((transaction) => {
   });
 });
 
-const amounts = transactionData.map((transaction) => transaction.amount);
+const amounts = transactionDatax.map((transaction) => transaction.amount);
 
 export const data = {
   labels: formattedDates,
@@ -198,7 +237,6 @@ export default function Chart() {
     Tooltip
   );
 
-
   const chartVariants = {
     hidden: { opacity: 0 },
     visible: { opacity: 1, transition: { duration: 1.5 } },
@@ -210,11 +248,12 @@ export default function Chart() {
 
   return (
     <Box
-    initial="hidden"
-    animate="visible"
-    variants={chartVariants}
-    as={motion.div}
-    w={["100%", "765px"]}>
+      initial="hidden"
+      animate="visible"
+      variants={chartVariants}
+      as={motion.div}
+      w={["100%", "765px"]}
+    >
       <Line options={options} data={data} />
     </Box>
   );

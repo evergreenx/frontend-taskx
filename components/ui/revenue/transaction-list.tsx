@@ -3,6 +3,7 @@ import {
   downloadIcon,
   depositIcon,
   withdrawalIcon,
+  receiptIcon,
 } from "@/assets";
 import API from "@/services/apiService";
 import { Box, Button, Flex, Text, useDisclosure } from "@chakra-ui/react";
@@ -13,44 +14,41 @@ import { Badge } from "@chakra-ui/react";
 
 import Image from "next/image";
 import FilterModal from "./filter/filter-drawer";
+import { transactionDatax } from "./chart";
 
 export default function TransactionList() {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [transactionsData, setTransactionsData] = useState<
     TransactioniInterface[] | undefined
-  >(undefined);
+  >(transactionDatax);
 
-  const [filtertransactionsData, setFilterTransactionsData] = useState(transactionsData);
-
+  const [filtertransactionsData, setFilterTransactionsData] =
+    useState(transactionsData);
 
   useEffect(() => {
-  
-    if(transactionsData) { 
-
-      setFilterTransactionsData(transactionsData)
+    if (transactionsData) {
+      setFilterTransactionsData(transactionsData);
     }
+  }, [transactionsData]);
 
-  }, [transactionsData])
-  
-console.log(filtertransactionsData)
+  console.log(filtertransactionsData);
 
-console.log(transactionsData)
+  console.log(transactionsData);
 
+  // useEffect(() => {
+  //   const fetchTransactions = async () => {
+  //     try {
+  //       const response = await API.getTransactionlList();
 
-  useEffect(() => {
-    const fetchTransactions = async () => {
-      try {
-        const response = await API.getTransactionlList();
+  //       setTransactionsData(response);
+  //     } catch (error) {
+  //     } finally {
+  //       setIsLoading(false);
+  //     }
+  //   };
 
-        setTransactionsData(response);
-      } catch (error) {
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchTransactions();
-  }, []);
+  //   fetchTransactions();
+  // }, []);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -73,48 +71,51 @@ console.log(transactionsData)
     filters: FilterValuesInterface
   ): TransactioniInterface[] | undefined => {
     if (!transactions) return undefined;
-  
-    // Extract 'type' and 'status' arrays from filters
-    const typesToFilter = filters.type.map((typeObj) => typeObj.type.toLowerCase());
 
-    console.log(typesToFilter)
-    const statusesToFilter = filters.status.map((statusObj) => statusObj.status.toLowerCase());
-  
+    // Extract 'type' and 'status' arrays from filters
+    const typesToFilter = filters.type.map((typeObj) =>
+      typeObj.type.toLowerCase()
+    );
+
+    console.log(typesToFilter);
+    const statusesToFilter = filters.status.map((statusObj) =>
+      statusObj.status.toLowerCase()
+    );
+
     // Filter transactions based on the extracted 'type' and 'status' arrays
     return transactions.filter((transaction) => {
       const lowerCaseType = transaction.type.toLowerCase();
       const lowerCaseStatus = transaction.status.toLowerCase();
-  
-      // Check if the transaction's type and status match the filtered arrays
-      const typeFilterMatch = filters.type.length === 0 || typesToFilter.includes(lowerCaseType);
-      const statusFilterMatch = statusesToFilter.length === 0 || statusesToFilter.includes(lowerCaseStatus);
 
-      console.log(typeFilterMatch)
-  
+      // Check if the transaction's type and status match the filtered arrays
+      const typeFilterMatch =
+        filters.type.length === 0 || typesToFilter.includes(lowerCaseType);
+      const statusFilterMatch =
+        statusesToFilter.length === 0 ||
+        statusesToFilter.includes(lowerCaseStatus);
+
+      console.log(typeFilterMatch);
+
       // Return true if both type and status criteria match the filters
       return typeFilterMatch && statusFilterMatch;
     });
   };
 
-
-
   const handleApplyFilter = () => {
+    const filteredTransactions = filterTransactions(
+      filtertransactionsData,
+      filters
+    );
 
+    setFilterTransactionsData(filteredTransactions);
 
-    const filteredTransactions = filterTransactions(filtertransactionsData, filters);
+    console.log(filteredTransactions);
+    onClose();
+  };
 
-    setFilterTransactionsData(filteredTransactions)
-
-    console.log(filteredTransactions)
-    onClose()
-
-  }
-
-
-
-  if (isLoading) {
-    return "loading transaction";
-  }
+  // if (isLoading) {
+  //   return "loading transaction";
+  // }
 
   return (
     <Box>
@@ -139,7 +140,9 @@ console.log(transactionsData)
         <Box>
           <Text fontWeight={700} fontSize={"24px"} color={"#131316"}>
             {filtertransactionsData?.length}{" "}
-            {filtertransactionsData?.length !== 1 ? "Transactions" : "Transaction"}
+            {filtertransactionsData?.length !== 1
+              ? "Transactions"
+              : "Transaction"}
           </Text>
           <Text fontWeight={"500"} fontSize={"14px"} color={"#56616B"}>
             Your transactions for the last 7 days
@@ -148,8 +151,6 @@ console.log(transactionsData)
 
         <Flex>
           <Button
-
-        
             onClick={onOpen}
             borderRadius={"100px"}
             padding={"12px 20px 12px 30px"}
@@ -210,6 +211,55 @@ console.log(transactionsData)
         </Flex>
       </Flex>
 
+      {/* empty state  */}
+
+      {
+        filtertransactionsData?.length === 0 &&      <Box w={"369px"} mx="auto" mt={"65px"}>
+        <Image src={receiptIcon} alt="receipt" />
+
+        <Text
+          mt={"20px"}
+          fontSize={"28px"}
+          fontWeight={"700"}
+          color={"#131316"}
+        >
+          No matching transaction found for the selected filter
+        </Text>
+
+        <Text
+          mt={"10px"}
+          fontSize={"16px"}
+          fontWeight={"500"}
+          color={"#56616B"}
+        >
+          Change your filters to see more results, or add a new product.
+        </Text>
+
+        <Button
+          onClick={() => {
+            setFilters({
+              type: [],
+              status: [],
+              daysRange: [],
+            });
+
+            setFilterTransactionsData(transactionsData);
+          }}
+          mt={"32px"}
+          p={"12px 24px"}
+          fontWeight={"600"}
+          fontSize={"16px"}
+          bg={"#EFF1F6"}
+          color={"#131316"}
+          borderRadius={"100px"}
+        >
+          Clear Filter
+        </Button>
+      </Box>
+      }
+
+ 
+
       {/* list */}
 
       <UnorderedList margin={0} mt={"33px"}>
@@ -228,7 +278,9 @@ console.log(transactionsData)
                   <Image src={depositIcon} alt="deposit" />
                 ) : list.type === "withdrawal" ? (
                   <Image src={withdrawalIcon} alt="withdrawal" />
-                ) : null}
+                ) : (
+                  <Image src={depositIcon} alt="deposit" />
+                )}
                 <Box ml={"14.5"}>
                   <Text
                     color={"#131316"}
@@ -240,9 +292,10 @@ console.log(transactionsData)
                       ? list.metadata.product_name
                       : list.type === "withdrawal"
                       ? "Cash withdrawal"
-                      : list.metadata?.type === "coffee" &&
-                        list.status === "successful"
+                      : list.metadata?.type === "coffee"
                       ? "Buy me a coffee"
+                      : list.type === "tipped"
+                      ? "You were tipped"
                       : null}
                   </Text>
 
@@ -256,6 +309,8 @@ console.log(transactionsData)
                         : list.type === "withdrawal" &&
                           list.status === "pending"
                         ? "#A77A07"
+                        : list.status === "successful"
+                        ? "#0EA163"
                         : "#56616B",
                     }}
                     fontSize={"14px"}
@@ -265,7 +320,7 @@ console.log(transactionsData)
                       ? list.metadata?.name
                       : list.type === "withdrawal"
                       ? list.status
-                      : null}
+                      : list.status}
                   </Text>
                 </Box>
               </Flex>

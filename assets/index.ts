@@ -32,3 +32,6 @@ export { default as expandIcon } from "./expandmore.svg";
 export { default as expandLessIcon } from "./expandless.svg";
 
 export { default as withdrawalIcon } from "./withdrawalIcon.svg";
+
+export { default as receiptIcon } from "./receipt.svg";
+
