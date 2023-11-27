@@ -1,9 +1,16 @@
-'use client'
-import { Box } from "@chakra-ui/react";
-
+"use client";
+import { Box, Button } from "@chakra-ui/react";
 
 export default function Home() {
+  return <Box>
 
 
-  return <Box></Box>;
+    <Button
+    bg="brand.300"
+    >
+
+
+      testing button 
+    </Button>
+  </Box>;
 }
