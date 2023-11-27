@@ -292,6 +292,8 @@ export default function TransactionList() {
                 )}
                 <Box ml={"14.5"}>
                   <Text
+                  isTruncated
+                  w={'106px'}
                     color={"#131316"}
                     fontSize={"16px"}
                     fontWeight={"500"}
