@@ -27,7 +27,7 @@ export default function WalletCard({
   return (
     <Box w={["100%", "271px"]} mb={"32px"}>
       <Flex alignItems={"center"} justifyContent={"space-between"}>
-        <Text color={"#56616B"} fontSize={"14px"} fontWeight={"500"}>
+        <Text color={"brand.100"} fontSize={"14px"} fontWeight={"500"}>
           {title}
         </Text>
 
@@ -41,19 +41,19 @@ export default function WalletCard({
             padding={"16px"}
             fontWeight={"500"}
             fontSize={"13px"}
-            bg="#131316"
+            bg="brand.300"
             color="#fff"
             _focusVisible={{
               border: "none",
             }}
           >
-            <PopoverArrow bg="#131316" />
+            <PopoverArrow bg="brand.300" />
             {label}
           </PopoverContent>
         </Popover>
       </Flex>
 
-      <Text fontWeight={"bold"} color={"#131316"} fontSize={["24px", "36px"]}>
+      <Text fontWeight={"bold"} color={"brand.300"} fontSize={["24px", "36px"]}>
         USD {amount.toFixed(2)}
       </Text>
     </Box>

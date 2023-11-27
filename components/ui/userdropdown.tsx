@@ -165,7 +165,7 @@ export default function userdropdown({
                 <Image src={menuOption.icon} alt={menuIcon.name} />
                 <Text
                   fontWeight={"600"}
-                  color={"#131316"}
+                  color={"brand.300"}
                   ml={"12px"}
                   fontSize={"16px"}
                 >

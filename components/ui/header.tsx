@@ -116,7 +116,7 @@ export default function Header() {
                   display={"flex"}
                   alignItems={"center"}
                   justifyItems={"center"}
-                  color={"#56616B"}
+                  color={"brand.100"}
                   textTransform={"capitalize"}
                   fontWeight={"600"}
                   fontSize={"16px"}

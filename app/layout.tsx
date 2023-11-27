@@ -8,9 +8,24 @@ import { Box } from "@chakra-ui/react";
 import localFont from 'next/font/local'
 
 
-const myFont = localFont({ src: '../fonts/DegularDemo-Regular/DegularDemo-Regular.otf' })
 
-const inter = Inter({ subsets: ["latin"] });
+
+const myFont = localFont({
+  src: [
+    {
+      path: '../fonts/DegularDemo-Regular/DegularDemo-Regular.otf',
+      weight: '400',
+      style: 'normal',
+    },
+    {
+      path: '../fonts/degular-bold/degular-bold.otf',
+      weight: '700',
+      style: 'normal',
+    }
+  
+  ],
+})
+
 
 export const metadata: Metadata = {
   title: "frontend task || ido evergren",

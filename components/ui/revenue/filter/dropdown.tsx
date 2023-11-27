@@ -71,7 +71,7 @@ const CustomMultiSelect = <T extends Option>({
     <Box>
       <Box
         style={{
-          border: isOpen ? "3px solid #131316 " : "0px",
+          border: isOpen ? "3px solid brand.300 " : "0px",
           backgroundColor: isOpen ? "#fff" : "#EFF1F6",
         }}
         cursor={"pointer"}
@@ -82,7 +82,7 @@ const CustomMultiSelect = <T extends Option>({
         justifyContent={"space-between"}
         alignItems="center"
       >
-        <Text color={"#131316"} fontSize={"14px"} fontWeight={"500"}>
+        <Text color={"brand.300"} fontSize={"14px"} fontWeight={"500"}>
           {displayText}
         </Text>
         <Text ml={2}>
@@ -124,7 +124,7 @@ const CustomMultiSelect = <T extends Option>({
                 onChange={() => handleOptionToggle(option)}
               />
               <Text
-                color={"#131316"}
+                color={"brand.300"}
                 fontSize={"16px"}
                 fontWeight={"600"}
                 ml={"12px"}

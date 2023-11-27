@@ -98,7 +98,7 @@ export default function FilterModal({
         my={"20px"}
       >
         <DrawerCloseButton />
-        <DrawerHeader p={0} fontWeight={"700"} color={"#131316"}>
+        <DrawerHeader p={0} fontWeight={"700"} color={"brand.300"}>
           <Text pb={"20px"}>Filter</Text>
         </DrawerHeader>
     
@@ -157,7 +157,7 @@ export default function FilterModal({
           <Box mx={"auto"} w={["100%", "412px"]} mb={"24px"}>
             <Text
               mb={"12px"}
-              color={"#131316"}
+              color={"brand.300"}
               fontWeight={"600"}
               fontSize={"16px"}
             >
@@ -170,7 +170,7 @@ export default function FilterModal({
           <Box mx={"auto"} w={["100%", "412px"]} mb={"24px"}>
             <Text
               mb={"12px"}
-              color={"#131316"}
+              color={"brand.300"}
               fontWeight={"600"}
               fontSize={"16px"}
             >
@@ -192,7 +192,7 @@ export default function FilterModal({
           <Box mx={"auto"} w={["100%", "412px"]} mb={"24px"}>
             <Text
               mb={"12px"}
-              color={"#131316"}
+              color={"brand.300"}
               fontWeight={"600"}
               fontSize={"16px"}
             >
@@ -249,10 +249,10 @@ export default function FilterModal({
             type="submit"
             w={"198px"}
             h={'48px'}
-            bg={"#131316"}
+            bg={"brand.300"}
             color={"#fff"}
             _hover={{
-              background: "#131316",
+              background: "brand.300",
             }}
           >
             Apply

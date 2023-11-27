@@ -147,13 +147,13 @@ export default function TransactionList() {
         mt={"96px"}
       >
         <Box>
-          <Text fontWeight={700} fontSize={"24px"} color={"#131316"}>
+          <Text fontWeight={700} fontSize={"24px"} color={"brand.300"}>
             {filtertransactionsData?.length}{" "}
             {filtertransactionsData?.length !== 1
               ? "Transactions"
               : "Transaction"}
           </Text>
-          <Text fontWeight={"500"} fontSize={"14px"} color={"#56616B"}>
+          <Text fontWeight={"500"} fontSize={"14px"} color={"brand.100"}>
             Your transactions for the last 7 days
           </Text>
         </Box>
@@ -174,7 +174,7 @@ export default function TransactionList() {
               mr={"4px"}
               fontWeight={"600"}
               fontSize={"16px"}
-              color={"#131316"}
+              color={"brand.300"}
               display={"flex"}
             >
               Filter
@@ -184,7 +184,7 @@ export default function TransactionList() {
                   ml="4px"
                   w={"20px"}
                   height={"20px"}
-                  bg={"#131316"}
+                  bg={"brand.300"}
                   display={"flex"}
                   justifyContent={"center"}
                   alignItems={"center"}
@@ -211,7 +211,7 @@ export default function TransactionList() {
               mr={"4px"}
               fontWeight={"600"}
               fontSize={"16px"}
-              color={"#131316"}
+              color={"brand.300"}
             >
               Export list
             </Text>
@@ -230,7 +230,7 @@ export default function TransactionList() {
             mt={"20px"}
             fontSize={"28px"}
             fontWeight={"700"}
-            color={"#131316"}
+            color={"brand.300"}
           >
             No matching transaction found for the selected filter
           </Text>
@@ -239,7 +239,7 @@ export default function TransactionList() {
             mt={"10px"}
             fontSize={"16px"}
             fontWeight={"500"}
-            color={"#56616B"}
+            color={"brand.100"}
           >
             Change your filters to see more results, or add a new product.
           </Text>
@@ -259,7 +259,7 @@ export default function TransactionList() {
             fontWeight={"600"}
             fontSize={"16px"}
             bg={"#EFF1F6"}
-            color={"#131316"}
+            color={"brand.300"}
             borderRadius={"100px"}
           >
             Clear Filter
@@ -269,7 +269,7 @@ export default function TransactionList() {
 
       {/* list */}
 
-      <UnorderedList margin={0} mt={"33px"} pb={'20px'}>
+      <UnorderedList margin={0} mt={"33px"} pb={"20px"}>
         {filtertransactionsData?.map((list) => {
           return (
             <ListItem
@@ -292,9 +292,9 @@ export default function TransactionList() {
                 )}
                 <Box ml={"14.5"}>
                   <Text
-                  isTruncated
-                  w={'106px'}
-                    color={"#131316"}
+                    isTruncated
+                    w={["106px", "100%"]}
+                    color={"brand.300"}
                     fontSize={"16px"}
                     fontWeight={"500"}
                     mb={"9px"}
@@ -313,7 +313,7 @@ export default function TransactionList() {
                   <Text
                     style={{
                       color: list.metadata?.name
-                        ? "#56616B"
+                        ? "brand.100"
                         : list.type === "withdrawal" &&
                           list.status === "successful"
                         ? "#0EA163"
@@ -322,7 +322,7 @@ export default function TransactionList() {
                         ? "#A77A07"
                         : list.status === "successful"
                         ? "#0EA163"
-                        : "#56616B",
+                        : "brand.100",
                     }}
                     fontSize={"14px"}
                     fontWeight={"500"}
@@ -342,11 +342,11 @@ export default function TransactionList() {
                 alignItems={"flex-end"}
                 justifyContent={"space-between"} // Adjust for spacing between inner elements
               >
-                <Text fontWeight={"700"} fontSize={"16px"} color={"#131316"}>
+                <Text fontWeight={"700"} fontSize={"16px"} color={"brand.300"}>
                   USD {list.amount}
                 </Text>
 
-                <Text color={"#131316"} fontSize={"14px"} fontWeight={"500"}>
+                <Text color={"brand.300"} fontSize={"14px"} fontWeight={"500"}>
                   {new Date(list.date).toLocaleDateString("en-US", {
                     year: "numeric",
                     month: "short",
