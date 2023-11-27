@@ -3,6 +3,17 @@ import { Box, Flex, Text } from "@chakra-ui/react";
 import { infoIcon } from "@/assets";
 import Image from "next/image";
 import { Tooltip } from "@chakra-ui/react";
+import {
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+  PopoverHeader,
+  PopoverBody,
+  PopoverFooter,
+  PopoverArrow,
+  PopoverCloseButton,
+  PopoverAnchor,
+} from "@chakra-ui/react";
 
 export default function WalletCard({
   title,
@@ -20,18 +31,26 @@ export default function WalletCard({
           {title}
         </Text>
 
-        <Tooltip
-          borderRadius={"12px"}
-          padding={"16px"}
-          fontWeight={"500"}
-          fontSize={"13px"}
-          hasArrow
-          label={label}
-          bg="#131316"
-          color="#fff"
-        >
-          <Image src={infoIcon} alt="info" />
-        </Tooltip>
+        <Popover>
+          <PopoverTrigger>
+            <Image src={infoIcon} alt="info" />
+          </PopoverTrigger>
+
+          <PopoverContent
+            borderRadius={"12px"}
+            padding={"16px"}
+            fontWeight={"500"}
+            fontSize={"13px"}
+            bg="#131316"
+            color="#fff"
+            _focusVisible={{
+              border: "none",
+            }}
+          >
+            <PopoverArrow bg="#131316" />
+            {label}
+          </PopoverContent>
+        </Popover>
       </Flex>
 
       <Text fontWeight={"bold"} color={"#131316"} fontSize={["24px", "36px"]}>

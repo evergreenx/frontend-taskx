@@ -14,7 +14,7 @@ import {
 
 import MultiSelect from "./dropdown";
 const transactionType: TransactionTypeInterface[] = [
-  { id: 1, name: "Store Transactions", type: "" },
+  { id: 1, name: "Store Transactions", type: "store" },
 
   { id: 0, name: "Deposit", type: "deposit" },
 
@@ -75,7 +75,7 @@ export default function FilterModal({
     // console.log("Selected Values:", selectedValues);
   };
 
-  // console.log(filters);
+  console.log(filters);
   return (
     <Drawer isOpen={isOpen} onClose={onClose} placement="right">
       <DrawerOverlay
@@ -91,8 +91,9 @@ export default function FilterModal({
         }
         p={"22px"}
         borderRadius={"24px"}
-        maxW={["100%", "456px"]}
-        mr={["0", "20px"]}
+        maxW={["95%", "456px"]}
+        mx={['auto' , '0']}
+        mr={["10px", "20px"]}
         ml={["10px", "0"]}
         my={"20px"}
       >
@@ -100,9 +101,11 @@ export default function FilterModal({
         <DrawerHeader p={0} fontWeight={"700"} color={"#131316"}>
           <Text pb={"20px"}>Filter</Text>
         </DrawerHeader>
-        {/* date range */}
+    
 
         <DrawerBody p={"0"}>
+
+              {/* date range */}
           <Box
             cursor={""}
             display={"flex"}
@@ -140,12 +143,27 @@ export default function FilterModal({
                   borderColor={"#EFF1F6"}
                   bg={"#fff"}
                   key={i}
+                  mb={'24px'}
                   whiteSpace={"nowrap"}
                 >
                   <span>{i}</span>
                 </Box>
               );
             })}
+          </Box>
+
+          {/* data range picker */}
+
+          <Box mx={"auto"} w={["100%", "412px"]} mb={"24px"}>
+            <Text
+              mb={"12px"}
+              color={"#131316"}
+              fontWeight={"600"}
+              fontSize={"16px"}
+            >
+              Date Range
+            </Text>
+          
           </Box>
 
           {/* transaction type dropdown */}
@@ -203,6 +221,8 @@ export default function FilterModal({
             p={"12px 24px"}
             type="submit"
             w={"198px"}
+            h={'48px'}
+
             bg={"#fff"}
             onClick={() => {
               setResetFilters(true);
@@ -219,12 +239,16 @@ export default function FilterModal({
             Clear
           </Button>
           <Button
+
+       ml={'12px'}
+          isDisabled={filters.type.length === 0}
             onClick={handleApplyFilter}
             fontSize={"16px"}
             borderRadius={"100px"}
             p={"12px 24px"}
             type="submit"
             w={"198px"}
+            h={'48px'}
             bg={"#131316"}
             color={"#fff"}
             _hover={{

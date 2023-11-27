@@ -6,7 +6,14 @@ import {
   receiptIcon,
 } from "@/assets";
 import API from "@/services/apiService";
-import { Box, Button, Flex, Text, useDisclosure } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Flex,
+  Text,
+  filter,
+  useDisclosure,
+} from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 
 import { ListItem, UnorderedList } from "@chakra-ui/react";
@@ -72,34 +79,34 @@ export default function TransactionList() {
   ): TransactioniInterface[] | undefined => {
     if (!transactions) return undefined;
 
-    // Extract 'type' and 'status' arrays from filters
+    // Extract 'type' array from filters
     const typesToFilter = filters.type.map((typeObj) =>
       typeObj.type.toLowerCase()
     );
 
     console.log(typesToFilter);
-    const statusesToFilter = filters.status.map((statusObj) =>
-      statusObj.status.toLowerCase()
-    );
-
-    // Filter transactions based on the extracted 'type' and 'status' arrays
+    // Filter transactions based on the extracted 'type' array
     return transactions.filter((transaction) => {
       const lowerCaseType = transaction.type.toLowerCase();
-      const lowerCaseStatus = transaction.status.toLowerCase();
 
-      // Check if the transaction's type and status match the filtered arrays
-      const typeFilterMatch =
-        filters.type.length === 0 || typesToFilter.includes(lowerCaseType);
-      const statusFilterMatch =
-        statusesToFilter.length === 0 ||
-        statusesToFilter.includes(lowerCaseStatus);
+      // Check if the transaction's type matches any value from the 'typesToFilter' array
+      const typeFilterMatch = typesToFilter.includes(lowerCaseType);
 
-      console.log(typeFilterMatch);
-
-      // Return true if both type and status criteria match the filters
-      return typeFilterMatch && statusFilterMatch;
+      return typeFilterMatch;
     });
   };
+
+  // const searchBy = (arr = [], searchKeys = [], value = '') => {
+  //   return arr.filter(item =>
+  //     searchKeys.length ? searchKeys.some(key =>
+  //       (item[key] || "").toLowerCase().includes(value.toLowerCase())
+  //     ) : true
+  //   );
+  // };
+
+  // console.log(searchBy(filtertransactionsData, ["type"], "tipped"));
+
+  // console.log(d , 'result')
 
   const handleApplyFilter = () => {
     const filteredTransactions = filterTransactions(
@@ -120,6 +127,7 @@ export default function TransactionList() {
   return (
     <Box>
       {/* filter drawer */}
+
       <FilterModal
         filters={filters}
         handleApplyFilter={handleApplyFilter}
@@ -130,6 +138,7 @@ export default function TransactionList() {
         transactionsData={transactionsData}
         setFilterTransactionsData={setFilterTransactionsData}
       />
+
       <Flex
         borderBottomWidth={"1px"}
         pb={"24px"}
@@ -213,67 +222,67 @@ export default function TransactionList() {
 
       {/* empty state  */}
 
-      {
-        filtertransactionsData?.length === 0 &&      <Box w={"369px"} mx="auto" mt={"65px"}>
-        <Image src={receiptIcon} alt="receipt" />
+      {filtertransactionsData?.length === 0 && (
+        <Box w={"369px"} mx="auto" mt={"65px"}>
+          <Image src={receiptIcon} alt="receipt" />
 
-        <Text
-          mt={"20px"}
-          fontSize={"28px"}
-          fontWeight={"700"}
-          color={"#131316"}
-        >
-          No matching transaction found for the selected filter
-        </Text>
+          <Text
+            mt={"20px"}
+            fontSize={"28px"}
+            fontWeight={"700"}
+            color={"#131316"}
+          >
+            No matching transaction found for the selected filter
+          </Text>
 
-        <Text
-          mt={"10px"}
-          fontSize={"16px"}
-          fontWeight={"500"}
-          color={"#56616B"}
-        >
-          Change your filters to see more results, or add a new product.
-        </Text>
+          <Text
+            mt={"10px"}
+            fontSize={"16px"}
+            fontWeight={"500"}
+            color={"#56616B"}
+          >
+            Change your filters to see more results, or add a new product.
+          </Text>
 
-        <Button
-          onClick={() => {
-            setFilters({
-              type: [],
-              status: [],
-              daysRange: [],
-            });
+          <Button
+            onClick={() => {
+              setFilters({
+                type: [],
+                status: [],
+                daysRange: [],
+              });
 
-            setFilterTransactionsData(transactionsData);
-          }}
-          mt={"32px"}
-          p={"12px 24px"}
-          fontWeight={"600"}
-          fontSize={"16px"}
-          bg={"#EFF1F6"}
-          color={"#131316"}
-          borderRadius={"100px"}
-        >
-          Clear Filter
-        </Button>
-      </Box>
-      }
-
- 
+              setFilterTransactionsData(transactionsData);
+            }}
+            mt={"32px"}
+            p={"12px 24px"}
+            fontWeight={"600"}
+            fontSize={"16px"}
+            bg={"#EFF1F6"}
+            color={"#131316"}
+            borderRadius={"100px"}
+          >
+            Clear Filter
+          </Button>
+        </Box>
+      )}
 
       {/* list */}
 
-      <UnorderedList margin={0} mt={"33px"}>
+      <UnorderedList margin={0} mt={"33px"} pb={'20px'}>
         {filtertransactionsData?.map((list) => {
           return (
             <ListItem
               display={"flex"}
               mb={"24px"}
+              w={"100%"}
               justifyContent={"space-between"}
               key={list.metadata?.name}
             >
-              <Flex>
-                {/* render depositIcon if type of transaction is deposit , if type is withdrawal render withdrawal icon  */}
-
+              <Box
+                display={"flex"}
+                alignItems="center" // Adjust alignment as needed
+              >
                 {list.type === "deposit" ? (
                   <Image src={depositIcon} alt="deposit" />
                 ) : list.type === "withdrawal" ? (
@@ -323,11 +332,15 @@ export default function TransactionList() {
                       : list.status}
                   </Text>
                 </Box>
-              </Flex>
+              </Box>
 
-              <Box alignSelf={"self-end"}>
+              <Box
+                display={"flex"}
+                flexDirection={"column"}
+                alignItems={"flex-end"}
+                justifyContent={"space-between"} // Adjust for spacing between inner elements
+              >
                 <Text fontWeight={"700"} fontSize={"16px"} color={"#131316"}>
-                  {" "}
                   USD {list.amount}
                 </Text>
 

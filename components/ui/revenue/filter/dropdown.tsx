@@ -14,7 +14,7 @@ interface CustomMultiSelectProps<T> {
   resetFilters: boolean;
 
   onResetComplete: () => void;
-  filterValues : any;
+  filterValues: any;
 
   onSelectionChange: (selectedValues: T[]) => void;
 }
@@ -26,9 +26,11 @@ const CustomMultiSelect = <T extends Option>({
   onSelectionChange,
   resetFilters,
   onResetComplete,
-  filterValues
+  filterValues,
 }: CustomMultiSelectProps<T>) => {
   const [selectedOptions, setSelectedOptions] = useState<T[]>(filterValues);
+
+  console.log(selectedOptions)
 
   const { isOpen, onToggle } = useDisclosure();
 
@@ -38,28 +40,33 @@ const CustomMultiSelect = <T extends Option>({
       onResetComplete();
     }
   }, [resetFilters, onResetComplete]);
+
+  
+
+
   const handleOptionToggle = (option: T) => {
+    let updatedOptions:any = [];
     if (selectedOptions.some((item) => item.id === option.id)) {
-      setSelectedOptions(
-        selectedOptions.filter((item) => item.id !== option.id)
-      );
+      updatedOptions = selectedOptions.filter((item) => item.id !== option.id);
     } else {
-      setSelectedOptions([...selectedOptions, option]);
+      updatedOptions = [...selectedOptions, option];
     }
-    onSelectionChange([...selectedOptions, option]);
+
+    setSelectedOptions(updatedOptions);
+    onSelectionChange(updatedOptions);
+
   };
 
+  // useEffect(() => {
+  //   onSelectionChange(selectedOptions);
+  // }, [selectedOptions, onSelectionChange]);
   const selectedOptionsText = selectedOptions
     .map((option) => option[displayProperty])
     .join(", ");
   const displayText =
     selectedOptions.length > 0 ? selectedOptionsText : `Select ${label}`;
 
-
-
-  
-
-    // console.log(filterValues)
+  // console.log(filterValues)
   return (
     <Box>
       <Box
@@ -110,7 +117,6 @@ const CustomMultiSelect = <T extends Option>({
               alignItems="center"
             >
               <Checkbox
-              
                 borderColor={"#DBDEE5"}
                 isChecked={selectedOptions.some(
                   (item) => item.id === option.id
