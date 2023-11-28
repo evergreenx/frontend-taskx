@@ -108,6 +108,49 @@ const CustomMultiSelect = <T extends Option>({
             <Box p={"14px"} key={option.id} display="flex" alignItems="center">
               <Checkbox
                 borderColor={"#DBDEE5"}
+                // bg="brand.100"
+                // borderColor={'brand.300'}
+                _checked={{
+                  "& .chakra-checkbox__control": {
+                    background: "brand.300",
+                    borderColor: "brand.300",
+                    border: "none",
+                  },
+                }}
+                _focusWithin={{
+                  background: "brand.300",
+                  borderColor: "brand.300",
+                  "& .chakra-checkbox__control": {
+                    background: "brand.300",
+                    borderColor: "brand.300",
+                  },
+                }}
+                _focusVisible={{
+                  borderColor: "brand.300",
+                  background: "brand.300",
+
+
+                  "& .chakra-checkbox__control": {
+                    background: "brand.300",
+                    borderColor: "brand.300",
+                  },
+                }}
+                _hover={{
+                  "& .chakra-checkbox__control": {
+                    // background: "none",
+
+                    borderColor: "#DBDEE5",
+                  },
+                }}
+                _focus={{
+                  background: "none",
+
+                  "& .chakra-checkbox__control": {
+                    background: "none",
+                    borderColor: "none",
+                 
+                  },
+                }}
                 isChecked={selectedOptions.some(
                   (item) => item.id === option.id
                 )}
