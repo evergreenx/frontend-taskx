@@ -6,14 +6,7 @@ import {
   receiptIcon,
 } from "@/assets";
 import API from "@/services/apiService";
-import {
-  Box,
-  Button,
-  Flex,
-  Text,
-  filter,
-  useDisclosure,
-} from "@chakra-ui/react";
+import { Box, Button, Flex, Text, useDisclosure } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 
 import { ListItem, UnorderedList } from "@chakra-ui/react";
@@ -22,6 +15,7 @@ import { Badge } from "@chakra-ui/react";
 import Image from "next/image";
 import FilterModal from "./filter/filter-drawer";
 import { transactionDatax } from "./chart";
+import { isWithinInterval, parseISO } from "date-fns";
 
 export default function TransactionList() {
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -37,10 +31,6 @@ export default function TransactionList() {
       setFilterTransactionsData(transactionsData);
     }
   }, [transactionsData]);
-
-  console.log(filtertransactionsData);
-
-  console.log(transactionsData);
 
   useEffect(() => {
     const fetchTransactions = async () => {
@@ -61,8 +51,8 @@ export default function TransactionList() {
 
   const [filters, setFilters] = useState<FilterValuesInterface>({
     type: [],
-    startdate: [],
-    endDate: [],
+    startDate: "",
+    endDate: "",
     status: [],
     daysRange: [],
   });
@@ -73,52 +63,47 @@ export default function TransactionList() {
     0
   );
 
-  //
-
-  const filterTransactions = (
-    transactions: TransactioniInterface[] | undefined,
+  const filterData = (
+    data: TransactioniInterface[] | undefined,
     filters: FilterValuesInterface
-  ): TransactioniInterface[] | undefined => {
-    if (!transactions) return undefined;
-
-    // Extract 'type' array from filters
+  ) => {
     const typesToFilter = filters.type.map((typeObj) =>
       typeObj.type.toLowerCase()
     );
 
-    console.log(typesToFilter);
-    // Filter transactions based on the extracted 'type' array
-    return transactions.filter((transaction) => {
-      const lowerCaseType = transaction.type.toLowerCase();
+    const statusToFilter = filters.status.map((typeObj) =>
+      typeObj.status.toLowerCase()
+    );
 
-      // Check if the transaction's type matches any value from the 'typesToFilter' array
-      const typeFilterMatch = typesToFilter.includes(lowerCaseType);
+    return data?.filter((item) => {
+      // Check if each property of the item matches the filter values
 
-      return typeFilterMatch;
+      const isTypeMatch =
+        filters.type.length === 0 || typesToFilter.includes(item.type);
+
+      const isStatusMatch =
+        filters.status.length === 0 || statusToFilter.includes(item.status);
+
+      let isDateRangeMatch = true;
+      if (filters.startDate && filters.endDate) {
+        const startDate = parseISO(filters.startDate);
+        const endDate = parseISO(filters.endDate);
+        const itemDate = parseISO(item.date);
+        isDateRangeMatch = isWithinInterval(itemDate, {
+          start: startDate,
+          end: endDate,
+        });
+      }
+
+      return isDateRangeMatch && isTypeMatch && isStatusMatch;
     });
   };
 
-  // const searchBy = (arr = [], searchKeys = [], value = '') => {
-  //   return arr.filter(item =>
-  //     searchKeys.length ? searchKeys.some(key =>
-  //       (item[key] || "").toLowerCase().includes(value.toLowerCase())
-  //     ) : true
-  //   );
-  // };
-
-  // console.log(searchBy(filtertransactionsData, ["type"], "tipped"));
-
-  // console.log(d , 'result')
-
   const handleApplyFilter = () => {
-    const filteredTransactions = filterTransactions(
-      filtertransactionsData,
-      filters
-    );
+    const filteredResult = filterData(transactionsData, filters);
+    setFilterTransactionsData(filteredResult);
 
-    setFilterTransactionsData(filteredTransactions);
-
-    console.log(filteredTransactions);
+    console.log(filteredResult);
     onClose();
   };
 
@@ -217,6 +202,7 @@ export default function TransactionList() {
             >
               Export list
             </Text>
+
             <Image alt="dowload" src={downloadIcon} />
           </Button>
         </Flex>
@@ -252,8 +238,8 @@ export default function TransactionList() {
                 type: [],
                 status: [],
                 daysRange: [],
-                endDate : [],
-                startdate : []
+                endDate: "",
+                startDate: "",
               });
 
               setFilterTransactionsData(transactionsData);

@@ -14,7 +14,7 @@ interface CustomMultiSelectProps<T> {
   resetFilters: boolean;
 
   onResetComplete: () => void;
-  filterValues: any;
+  filterValues: T[];
 
   onSelectionChange: (selectedValues: T[]) => void;
 }
@@ -29,8 +29,6 @@ const CustomMultiSelect = <T extends Option>({
   filterValues,
 }: CustomMultiSelectProps<T>) => {
   const [selectedOptions, setSelectedOptions] = useState<T[]>(filterValues);
-
-  console.log(selectedOptions);
 
   const { isOpen, onToggle } = useDisclosure();
 
@@ -129,7 +127,6 @@ const CustomMultiSelect = <T extends Option>({
                   borderColor: "brand.300",
                   background: "brand.300",
 
-
                   "& .chakra-checkbox__control": {
                     background: "brand.300",
                     borderColor: "brand.300",
@@ -148,7 +145,6 @@ const CustomMultiSelect = <T extends Option>({
                   "& .chakra-checkbox__control": {
                     background: "none",
                     borderColor: "none",
-                 
                   },
                 }}
                 isChecked={selectedOptions.some(

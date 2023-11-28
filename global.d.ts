@@ -76,6 +76,6 @@ interface FilterValuesInterface {
   type: any[]; // Define the type for selected transaction types
   status: any[]; // Define the type for selected transaction statuses
   daysRange: any[]; // Define the type for selected date ranges
-startdate: any[];
-endDate : any[]
+startDate: string;
+endDate : string
 }

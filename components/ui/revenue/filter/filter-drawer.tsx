@@ -13,17 +13,10 @@ import {
   Flex,
 } from "@chakra-ui/react";
 
-import { format } from "date-fns";
-
-import { DayPicker } from "react-day-picker";
 import "react-day-picker/dist/style.css";
 
-import Image from "next/image";
-
 import MultiSelect from "./dropdown";
-import { expandIcon, expandLessIcon } from "@/assets";
 
-import { Icon, createIcon } from "@chakra-ui/react";
 import DatePicker from "./datepicker";
 const transactionType: TransactionTypeInterface[] = [
   { id: 1, name: "Store Transactions", type: "store" },
@@ -78,16 +71,13 @@ export default function FilterModal({
   };
 
   const handleFilter = (
-    selectedValues: any[],
-    filterType: keyof FilterValuesInterface
+    selectedValues: string | string[],
+    filterType: keyof typeof filters
   ) => {
     // Update filters state based on filter type
     setFilters({ ...filters, [filterType]: selectedValues });
-
-    // console.log("Selected Values:", selectedValues);
   };
 
-  console.log(filters);
   return (
     <Drawer isOpen={isOpen} onClose={onClose} placement="right">
       <DrawerOverlay
@@ -132,7 +122,6 @@ export default function FilterModal({
                 width: "6px",
               },
               "&::-webkit-scrollbar-thumb": {
-                // background: scrollbarColor,
                 borderRadius: "24px",
               },
             }}
@@ -177,15 +166,21 @@ export default function FilterModal({
 
             <Flex justifyContent={"space-between"}>
               <DatePicker
-                onSelectionChange={(selectedValues: any) =>
-                  handleFilter(selectedValues, "startdate")
+                resetFilters={resetFilters}
+                filterValues={filters.startDate}
+                onSelectionChange={(selectedValues) =>
+                  handleFilter(selectedValues, "startDate")
                 }
+                onResetComplete={handleResetComplete}
               />
 
               <DatePicker
-                onSelectionChange={(selectedValues: any) =>
+                resetFilters={resetFilters}
+                filterValues={filters.endDate}
+                onSelectionChange={(selectedValues) =>
                   handleFilter(selectedValues, "endDate")
                 }
+                onResetComplete={handleResetComplete}
               />
             </Flex>
           </Box>
@@ -263,7 +258,7 @@ export default function FilterModal({
           </Button>
           <Button
             ml={"12px"}
-            isDisabled={filters.type.length === 0}
+            // isDisabled={filters.type.length === 0}
             onClick={handleApplyFilter}
             fontSize={"16px"}
             borderRadius={"100px"}

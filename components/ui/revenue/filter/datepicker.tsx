@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
-import { format } from "date-fns";
+import { format, parseISO } from "date-fns";
 import { CaptionProps, DayPicker, useNavigation } from "react-day-picker";
-import { Box, Button, Flex, Icon, Text } from "@chakra-ui/react";
+import { Box, Button, Flex, Icon, Text, useDisclosure } from "@chakra-ui/react";
 import { expandIcon, expandLessIcon } from "@/assets";
 import Image from "next/image";
 function CustomCaption(props: CaptionProps) {
@@ -52,20 +52,43 @@ function CustomCaption(props: CaptionProps) {
   );
 }
 
-export default function DatePicker({ onSelectionChange }: any) {
-  const [isOpen, setIsOpen] = useState(false);
+interface CustomMultiSelectProps {
+  resetFilters: boolean;
 
-  const handleToggle = () => {
-    setIsOpen(!isOpen);
-  };
+  onResetComplete: () => void;
+  filterValues:string;
+
+  onSelectionChange: (selectedValue:string) => void;
+}
+
+export default function DatePicker({
+  onSelectionChange,
+  filterValues,
+  resetFilters,
+  onResetComplete,
+}: CustomMultiSelectProps) {
+  const { isOpen, onClose, onToggle } = useDisclosure();
+
+  useEffect(() => {
+    if (filterValues) {
+      setSelected(parseISO(filterValues));
+    }
+  }, [filterValues]);
 
   const handleDateSelect = (date: Date) => {
     setSelected(date);
-    onSelectionChange(format(date, "PP")); // Pass the selected date to the parent component
-    setIsOpen(false); // Close the date picker
+    onSelectionChange(format(date, "yyyy-MM-dd")); // Pass the selected date to the parent component
+    onClose(); // Close the date picker
   };
 
-  const [selected, setSelected] = useState<Date | undefined>(new Date());
+  useEffect(() => {
+    if (resetFilters) {
+      setSelected(undefined);
+      onResetComplete();
+    }
+  }, [resetFilters, onResetComplete]);
+
+  const [selected, setSelected] = useState<Date | undefined>();
 
   return (
     <Box>
@@ -75,10 +98,10 @@ export default function DatePicker({ onSelectionChange }: any) {
           backgroundColor: isOpen ? "#fff" : "#EFF1F6",
         }}
         cursor="pointer"
-        w={["100%" , "203px" ]}
+        w={["100%", "203px"]}
         p="14px 16px"
         borderRadius="12px"
-        onClick={handleToggle}
+        onClick={onToggle}
         display="flex"
         justifyContent="space-between"
         alignItems="center"
@@ -100,7 +123,6 @@ export default function DatePicker({ onSelectionChange }: any) {
           as="div"
           zIndex={999}
           position="absolute"
-       
           w={["100%", "412px"]}
           bg="#fff"
           p="8px"
