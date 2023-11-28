@@ -30,7 +30,7 @@ const CustomMultiSelect = <T extends Option>({
 }: CustomMultiSelectProps<T>) => {
   const [selectedOptions, setSelectedOptions] = useState<T[]>(filterValues);
 
-  console.log(selectedOptions)
+  console.log(selectedOptions);
 
   const { isOpen, onToggle } = useDisclosure();
 
@@ -41,11 +41,8 @@ const CustomMultiSelect = <T extends Option>({
     }
   }, [resetFilters, onResetComplete]);
 
-  
-
-
   const handleOptionToggle = (option: T) => {
-    let updatedOptions:any = [];
+    let updatedOptions: any = [];
     if (selectedOptions.some((item) => item.id === option.id)) {
       updatedOptions = selectedOptions.filter((item) => item.id !== option.id);
     } else {
@@ -54,7 +51,6 @@ const CustomMultiSelect = <T extends Option>({
 
     setSelectedOptions(updatedOptions);
     onSelectionChange(updatedOptions);
-
   };
 
   // useEffect(() => {
@@ -71,7 +67,7 @@ const CustomMultiSelect = <T extends Option>({
     <Box>
       <Box
         style={{
-          border: isOpen ? "3px solid brand.300 " : "0px",
+          border: isOpen ? "3px solid #131316 " : "0px",
           backgroundColor: isOpen ? "#fff" : "#EFF1F6",
         }}
         cursor={"pointer"}
@@ -97,11 +93,11 @@ const CustomMultiSelect = <T extends Option>({
         <Box
           as={motion.div}
           position={"absolute"}
-          //   initial={{ opacity: 0, scaleY: 0 }}
-          //   animate={{ opacity: 1, scaleY: 1 }}
-          //   exit={{ opacity: 0, scaleY: 0 }}
+          zIndex={"999"}
           w={["100%", "412px"]}
+          // h={["100%", "314px"]}
           bg={"#fff"}
+          mt={"12px"}
           p={"8px"}
           borderRadius={"12px"}
           boxShadow={
@@ -109,13 +105,7 @@ const CustomMultiSelect = <T extends Option>({
           }
         >
           {options.map((option) => (
-            <Box
-              mt={"10px"}
-              p={"14px"}
-              key={option.id}
-              display="flex"
-              alignItems="center"
-            >
+            <Box p={"14px"} key={option.id} display="flex" alignItems="center">
               <Checkbox
                 borderColor={"#DBDEE5"}
                 isChecked={selectedOptions.some(

@@ -1,31 +1,25 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
 import { Providers } from "./providers";
 import Header from "@/components/ui/header";
 import { Box } from "@chakra-ui/react";
 
-import localFont from 'next/font/local'
-
-
-
+import localFont from "next/font/local";
 
 const myFont = localFont({
   src: [
     {
-      path: '../fonts/DegularDemo-Regular/DegularDemo-Regular.otf',
-      weight: '400',
-      style: 'normal',
+      path: "../fonts/DegularDemo-Regular/DegularDemo-Regular.otf",
+      weight: "400",
+      style: "normal",
     },
     {
-      path: '../fonts/degular-bold/degular-bold.otf',
-      weight: '700',
-      style: 'normal',
-    }
-  
+      path: "../fonts/degular-bold/degular-bold.otf",
+      weight: "700",
+      style: "normal",
+    },
   ],
-})
-
+});
 
 export const metadata: Metadata = {
   title: "frontend task || ido evergren",
@@ -40,14 +34,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={myFont.className}>
-        <Box 
-        
-        h={'100'}
-        p={'16px'}>
-        <Providers>
-          <Header />
-          {children}
-        </Providers>
+        <Box h={"100"} p={"16px"}>
+          <Providers>
+            <Header />
+            {children}
+          </Providers>
         </Box>
       </body>
     </html>

@@ -61,6 +61,8 @@ export default function TransactionList() {
 
   const [filters, setFilters] = useState<FilterValuesInterface>({
     type: [],
+    startdate: [],
+    endDate: [],
     status: [],
     daysRange: [],
   });
@@ -250,6 +252,8 @@ export default function TransactionList() {
                 type: [],
                 status: [],
                 daysRange: [],
+                endDate : [],
+                startdate : []
               });
 
               setFilterTransactionsData(transactionsData);
