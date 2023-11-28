@@ -75,7 +75,7 @@ export default function DatePicker({ onSelectionChange }: any) {
           backgroundColor: isOpen ? "#fff" : "#EFF1F6",
         }}
         cursor="pointer"
-        w={"203px"}
+        w={["100%" , "203px" ]}
         p="14px 16px"
         borderRadius="12px"
         onClick={handleToggle}
@@ -100,6 +100,7 @@ export default function DatePicker({ onSelectionChange }: any) {
           as="div"
           zIndex={999}
           position="absolute"
+       
           w={["100%", "412px"]}
           bg="#fff"
           p="8px"
