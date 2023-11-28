@@ -176,18 +176,16 @@ export default function FilterModal({
             </Text>
 
             <Flex justifyContent={"space-between"}>
-              <DatePicker 
-                 
-                 onSelectionChange={(selectedValues:any) =>
+              <DatePicker
+                onSelectionChange={(selectedValues: any) =>
                   handleFilter(selectedValues, "startdate")
                 }
               />
 
               <DatePicker
-              
-              onSelectionChange={(selectedValues:any) =>
-                handleFilter(selectedValues, "endDate")
-              }
+                onSelectionChange={(selectedValues: any) =>
+                  handleFilter(selectedValues, "endDate")
+                }
               />
             </Flex>
           </Box>

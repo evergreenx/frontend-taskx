@@ -42,20 +42,20 @@ export default function TransactionList() {
 
   console.log(transactionsData);
 
-  // useEffect(() => {
-  //   const fetchTransactions = async () => {
-  //     try {
-  //       const response = await API.getTransactionlList();
+  useEffect(() => {
+    const fetchTransactions = async () => {
+      try {
+        const response = await API.getTransactionlList();
 
-  //       setTransactionsData(response);
-  //     } catch (error) {
-  //     } finally {
-  //       setIsLoading(false);
-  //     }
-  //   };
+        setTransactionsData(response);
+      } catch (error) {
+      } finally {
+        setIsLoading(false);
+      }
+    };
 
-  //   fetchTransactions();
-  // }, []);
+    fetchTransactions();
+  }, []);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -122,9 +122,9 @@ export default function TransactionList() {
     onClose();
   };
 
-  // if (isLoading) {
-  //   return "loading transaction";
-  // }
+  if (isLoading) {
+    return "loading transaction";
+  }
 
   return (
     <Box>
