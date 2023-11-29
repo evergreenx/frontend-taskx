@@ -2,17 +2,13 @@ import React from "react";
 import { Box, Flex, Text } from "@chakra-ui/react";
 import { infoIcon } from "@/assets";
 import Image from "next/image";
-import { Tooltip } from "@chakra-ui/react";
 import {
   Popover,
   PopoverTrigger,
   PopoverContent,
-  PopoverHeader,
-  PopoverBody,
-  PopoverFooter,
+
   PopoverArrow,
-  PopoverCloseButton,
-  PopoverAnchor,
+
 } from "@chakra-ui/react";
 
 export default function WalletCard({

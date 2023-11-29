@@ -15,19 +15,13 @@ import { Badge } from "@chakra-ui/react";
 import Image from "next/image";
 import FilterModal from "./filter/filter-drawer";
 import { isWithinInterval, parseISO } from "date-fns";
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from "uuid";
 
 export default function TransactionList({
   setFilterTransactionsData,
   filtertransactionsData,
-  transactionsData
+  transactionsData,
 }: any) {
-
-
-
- 
-
-
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const [filters, setFilters] = useState<FilterValuesInterface>({
@@ -84,7 +78,6 @@ export default function TransactionList({
     const filteredResult = filterData(transactionsData, filters);
     setFilterTransactionsData(filteredResult);
 
- 
     onClose();
   };
 
@@ -237,7 +230,7 @@ export default function TransactionList({
       {/* list */}
 
       <UnorderedList margin={0} mt={"33px"} pb={"20px"}>
-        {filtertransactionsData?.map((list:any) => {
+        {filtertransactionsData?.map((list: any) => {
           return (
             <ListItem
               display={"flex"}

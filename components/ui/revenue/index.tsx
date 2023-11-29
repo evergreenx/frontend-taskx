@@ -7,6 +7,7 @@ import { Box, Flex } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import { blurInVariant } from "@/variant";
 import Transaction from "./transaction";
+import { Text } from "@chakra-ui/react";
 
 export default function RevenueContainer() {
   const [isLoadingWalletData, setIsLoadingWalletData] = useState<boolean>(true);
@@ -65,7 +66,10 @@ export default function RevenueContainer() {
   return (
     <>
       {isLoadingWalletData ? (
-        "loading wallets data"
+        <Text>
+loading wallets data
+
+        </Text>
       ) : (
         <Flex
           as={motion.div}
@@ -85,7 +89,12 @@ export default function RevenueContainer() {
       )}
 
       {isLoadingWalletData ? (
-        "loading your transaction"
+
+        <Text>
+
+loading your transaction
+
+        </Text>
       ) : (
         <Transaction
           setFilterTransactionsData={setFilterTransactionsData}

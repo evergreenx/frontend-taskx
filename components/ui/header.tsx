@@ -14,7 +14,7 @@ import {
   revenueIcon,
 } from "@/assets";
 
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from "uuid";
 
 import { ListItem, UnorderedList } from "@chakra-ui/react";
 
@@ -36,7 +36,7 @@ const links: LinksInterface[] = [
   {
     name: "Analytics",
     iconPath: analyticsIcon,
-    path: "/",
+    path: "/Analytics",
   },
 
   {
@@ -47,13 +47,13 @@ const links: LinksInterface[] = [
   {
     name: "CRM",
     iconPath: crmIcon,
-    path: "/",
+    path: "/CRM",
   },
 
   {
     name: "apps",
     iconPath: appsIcon,
-    path: "/",
+    path: "/apps",
   },
 ];
 
@@ -101,7 +101,7 @@ export default function Header() {
       </Box>
 
       <Box display={"flex"}>
-        <UnorderedList display={['none' , 'flex']}>
+        <UnorderedList display={["none", "flex"]}>
           {links.map((link) => {
             return (
               <Link color="" key={uuidv4()} href={link.path}>
@@ -112,13 +112,13 @@ export default function Header() {
                       : "non-active-class-name"
                   }
                   _hover={{
-                    background: "#EFF1F6",
+                    background:   pathname === link.path ?  "#131316" : '#EFF1F6'
                   }}
                   borderRadius={"100px"}
                   display={"flex"}
                   alignItems={"center"}
                   justifyItems={"center"}
-                  color={"brand.100"}
+                  color={ pathname === link.path ? "#fff" : 'brand.100'}
                   textTransform={"capitalize"}
                   fontWeight={"600"}
                   fontSize={"16px"}

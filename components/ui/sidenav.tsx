@@ -34,57 +34,63 @@ const sidenavLinks = [
 
 export default function SideNav() {
   return (
-    <Box
-      variants={blurInVariant}
-      as={motion.div}
-      zIndex={'99'}
-      bg={"#fff"}
-      w={"48px"}
-      h={"192px"}
-      p={"4px"}
-      borderRadius={"100px"}
-      boxShadow={
-        "0px 6px 12px 0px rgba(92, 115, 131, 0.08), 0px 4px 8px 0px rgba(92, 115, 131, 0.08)"
-      }
-      position={"fixed"}
-      top={"19.375rem"}
-    >
-      <Box>
-        {sidenavLinks.map((sidenavLink) => {
-          return (
-            <Tooltip
-              borderRadius={"12px"}
-              padding={"16px"}
-              fontWeight={"500"}
-              fontSize={"13px"}
-              bg="brand.300"
-              color="#fff"
-              _focusVisible={{
-                border: "none",
-              }}
-              hasArrow
-              label={sidenavLink.desc}
-              placement="right-end"
-              key={uuidv4()}
-              box-shadow="rgba(188, 196, 204, 0.12) 0px 8px 16px 4px"
-            >
-              <Box
-                filter="grayscale(1)"
-                borderRadius={"100px"}
-                cursor={"pointer"}
-                _hover={{
-                  filter: "none",
-                  background: "#EFF1F6",
+    <>
+     
+      <Box
+
+data-testid="sidenav"
+        variants={blurInVariant}
+        as={motion.div}
+        zIndex={"99"}
+        bg={"#fff"}
+        w={"48px"}
+        h={"192px"}
+        p={"4px"}
+        borderRadius={"100px"}
+        boxShadow={
+          "0px 6px 12px 0px rgba(92, 115, 131, 0.08), 0px 4px 8px 0px rgba(92, 115, 131, 0.08)"
+        }
+        position={"fixed"}
+        top={"19.375rem"}
+      >
+   
+        <Box>
+          {sidenavLinks.map((sidenavLink) => {
+            return (
+              <Tooltip
+                borderRadius={"12px"}
+                padding={"16px"}
+                fontWeight={"500"}
+                fontSize={"13px"}
+                bg="brand.300"
+                color="#fff"
+                _focusVisible={{
+                  border: "none",
                 }}
-                p={"8px"}
-                mb={"8px"}
+                hasArrow
+                label={sidenavLink.desc}
+                placement="right-end"
+                key={uuidv4()}
+                box-shadow="rgba(188, 196, 204, 0.12) 0px 8px 16px 4px"
               >
-                <Image src={sidenavLink.url} alt={sidenavLink.url} />
-              </Box>
-            </Tooltip>
-          );
-        })}
+                <Box
+                  filter="grayscale(1)"
+                  borderRadius={"100px"}
+                  cursor={"pointer"}
+                  _hover={{
+                    filter: "none",
+                    background: "#EFF1F6",
+                  }}
+                  p={"8px"}
+                  mb={"8px"}
+                >
+                  <Image src={sidenavLink.url} alt={sidenavLink.url} />
+                </Box>
+              </Tooltip>
+            );
+          })}
+        </Box>
       </Box>
-    </Box>
+    </>
   );
 }

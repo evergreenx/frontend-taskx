@@ -1,16 +1,16 @@
 "use client";
 import { Box, Button } from "@chakra-ui/react";
 
+import { redirect } from 'next/navigation'
+
 export default function Home() {
-  return <Box>
 
-
-    <Button
-    bg="brand.300"
-    >
-
-
-      testing button 
-    </Button>
-  </Box>;
+  if (true) {
+    redirect('/revenue')
+  }
+  return (
+    <Box>
+     
+    </Box>
+  );
 }
