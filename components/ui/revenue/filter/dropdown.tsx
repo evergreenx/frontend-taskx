@@ -51,16 +51,13 @@ const CustomMultiSelect = <T extends Option>({
     onSelectionChange(updatedOptions);
   };
 
-  // useEffect(() => {
-  //   onSelectionChange(selectedOptions);
-  // }, [selectedOptions, onSelectionChange]);
   const selectedOptionsText = selectedOptions
     .map((option) => option[displayProperty])
     .join(", ");
   const displayText =
     selectedOptions.length > 0 ? selectedOptionsText : `Select ${label}`;
 
-  // console.log(filterValues)
+
   return (
     <Box>
       <Box

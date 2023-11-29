@@ -21,8 +21,16 @@ export default function TransactionList({
   setFilterTransactionsData,
   filtertransactionsData,
   transactionsData,
-}: any) {
+}: {
+  setFilterTransactionsData: React.Dispatch<
+    React.SetStateAction<TransactioniInterface[] | undefined>
+  >;
+  filtertransactionsData: TransactioniInterface[] | undefined;
+  transactionsData: TransactioniInterface[] | undefined;
+}) {
   const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const [selectedRange, setSelectedRange] = useState("All time");
 
   const [filters, setFilters] = useState<FilterValuesInterface>({
     type: [],
@@ -94,6 +102,8 @@ export default function TransactionList({
         onClose={onClose}
         transactionsData={transactionsData}
         setFilterTransactionsData={setFilterTransactionsData}
+        selectedRange={selectedRange}
+        setSelectedRange={setSelectedRange}
       />
 
       <Flex
@@ -111,7 +121,7 @@ export default function TransactionList({
               : "Transaction"}
           </Text>
           <Text fontWeight={"500"} fontSize={"14px"} color={"brand.100"}>
-            Your transactions for the last 7 days
+            Your transactions for {selectedRange}
           </Text>
         </Box>
 
@@ -230,7 +240,7 @@ export default function TransactionList({
       {/* list */}
 
       <UnorderedList margin={0} mt={"33px"} pb={"20px"}>
-        {filtertransactionsData?.map((list: any) => {
+        {filtertransactionsData?.map((list) => {
           return (
             <ListItem
               display={"flex"}

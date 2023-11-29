@@ -13,7 +13,7 @@ import {
   Flex,
 } from "@chakra-ui/react";
 
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from "uuid";
 
 import "react-day-picker/dist/style.css";
 
@@ -56,21 +56,32 @@ export default function FilterModal({
   handleApplyFilter,
   transactionsData,
   setFilterTransactionsData,
+  setSelectedRange,
+  selectedRange,
 }: {
   isOpen: boolean;
   onOpen: () => void;
   onClose: () => void;
   filters: FilterValuesInterface;
-  setFilters: any;
-  transactionsData: any;
+  setFilters: React.SetStateAction<FilterValuesInterface|any>;
+  transactionsData: TransactioniInterface[] | undefined;
   handleApplyFilter: () => void;
-  setFilterTransactionsData: any;
+  setFilterTransactionsData: React.Dispatch<
+    React.SetStateAction<TransactioniInterface[] | undefined>
+  >;
+  setSelectedRange: React.Dispatch<React.SetStateAction<string>>;
+  selectedRange: string;
 }) {
   const [resetFilters, setResetFilters] = useState<boolean>(false);
-  const [startDate, setStartDate] = useState();
 
   const handleResetComplete = () => {
     setResetFilters(false); // Set back to false after reset is done
+  };
+
+  // State to track selected date range
+
+  const handleRangeSelection = (range: string) => {
+    setSelectedRange(range === selectedRange ? "" : range); // Toggle selection on click
   };
 
   const handleFilter = (
@@ -129,10 +140,11 @@ export default function FilterModal({
               },
             }}
           >
-            {daysRange.map((i) => {
+            {daysRange.map((range) => {
               return (
                 <Box
-                  // minW={'73px'}
+                  onClick={() => handleRangeSelection(range)} // Handle click event
+                  style={{ cursor: "pointer" }}
                   fontSize={"14px"}
                   // w={"116px"}
                   fontWeight={"600"}
@@ -144,12 +156,14 @@ export default function FilterModal({
                   borderRadius={"100px"}
                   borderWidth={"1px"}
                   borderColor={"#EFF1F6"}
-                  bg={"#fff"}
+                  // bg={"#fff"}
                   key={uuidv4()}
                   mb={"24px"}
                   whiteSpace={"nowrap"}
+                  bg={selectedRange === range ? "#131316" : "#fff"}
+                  color={selectedRange === range ? "#fff" : "#131316"} // Change text color based on selection
                 >
-                  <span>{i}</span>
+                  <span>{range}</span>
                 </Box>
               );
             })}

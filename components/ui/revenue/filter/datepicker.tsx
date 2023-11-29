@@ -53,7 +53,7 @@ function CustomCaption(props: CaptionProps) {
   );
 }
 
-interface CustomMultiSelectProps {
+interface CustomDatePickerProps {
   resetFilters: boolean;
 
   onResetComplete: () => void;
@@ -71,7 +71,7 @@ export default function DatePicker({
   onResetComplete,
   selectedStartDate,
   selectedEndDate,
-}: CustomMultiSelectProps) {
+}: CustomDatePickerProps) {
   const { isOpen, onClose, onToggle } = useDisclosure();
 
   useEffect(() => {
@@ -92,9 +92,6 @@ export default function DatePicker({
       onResetComplete();
     }
   }, [resetFilters, onResetComplete]);
-
-  console.log(selectedStartDate, "startDate");
-  console.log(selectedEndDate, "endDate");
 
   const [selected, setSelected] = useState<Date | undefined>(undefined);
 
@@ -139,6 +136,7 @@ export default function DatePicker({
           as="div"
           zIndex={999}
           position="absolute"
+          left={"20px"}
           w={["100%", "412px"]}
           bg="#fff"
           p="8px"
@@ -193,7 +191,7 @@ export default function DatePicker({
             }}
             selected={selected}
             disabled={isDateDisabled}
-            onSelect={(date: any) => handleDateSelect(date)}
+            onSelect={(date: Date | any) => handleDateSelect(date)}
           />
         </Box>
       )}

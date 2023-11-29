@@ -7,7 +7,7 @@ export default function AvailableBalance({
   data
 }: {
   balance: number | undefined;
-  data : any
+  data : TransactioniInterface[] | undefined
 }) {
   return balance ? (
     <Box>

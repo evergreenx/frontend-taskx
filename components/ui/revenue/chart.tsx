@@ -48,7 +48,11 @@ export const options = {
   },
 };
 
-export default function Chart({ data }:any) {
+export default function Chart({
+  data,
+}: {
+  data: TransactioniInterface[] | undefined;
+}) {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [walletDetails, setWalletDetails] = useState<
     WalletDetailsInterface | undefined
@@ -69,7 +73,7 @@ export default function Chart({ data }:any) {
     fetchWalletDetails();
   }, []);
 
-  const formattedDates = data?.map((transaction:any) => {
+  const formattedDates = data?.map((transaction: TransactioniInterface) => {
     const date = new Date(transaction.date);
     return date.toLocaleDateString("en-US", {
       year: "numeric",
@@ -78,7 +82,9 @@ export default function Chart({ data }:any) {
     });
   });
 
-  const amounts = data?.map((transaction:any) => transaction.amount);
+  const amounts = data?.map(
+    (transaction: TransactioniInterface) => transaction.amount
+  );
 
   const dataChart = {
     labels: formattedDates,
