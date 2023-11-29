@@ -35,3 +35,14 @@ export { default as withdrawalIcon } from "./withdrawalIcon.svg";
 
 export { default as receiptIcon } from "./receipt.svg";
 
+export { default as mediakitIcon } from "./mediakit.svg";
+
+export { default as storeIcon } from "./storeIcon.svg";
+
+export { default as invoicingIcon } from "./invoicing.svg";
+
+export { default as linkinbioIcon } from "./link-in-bio_icon.svg";
+
+
+
+

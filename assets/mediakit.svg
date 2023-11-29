@@ -1,0 +1,54 @@
+   <svg
+          width="24"
+          height="24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M15.84 4.925v6.1c0 .39-.31.7-.7.7H9.98c-.39 0-.7-.31-.7-.7v-.97h-4.3c-.39 0-.7-.31-.7-.7v-6.1c0-.39.31-.7.7-.7h5.16c.39 0 .7.31.7.7v.97h4.3c.38 0 .7.32.7.7Z"
+            fill="url(#mediakit_icon_svg__a)"
+          ></path>
+          <path
+            d="M11.59 14.185H2.7c-.39 0-.7-.31-.7-.7v-6.93c0-.39.31-.7.7-.7h8.89c.39 0 .7.31.7.7v6.93c0 .39-.31.7-.7.7Z"
+            fill="url(#mediakit_icon_svg__b)"
+          ></path>
+          <path
+            d="M21.3 21.445H2.7c-.39 0-.7-.31-.7-.7V8.475c0-.39.31-.7.7-.7h18.6c.39 0 .7.31.7.7v12.27c0 .39-.31.7-.7.7Z"
+            fill="url(#mediakit_icon_svg__c)"
+          ></path>
+          <defs>
+            <linearGradient
+              id="mediakit_icon_svg__a"
+              x1="4.275"
+              y1="7.143"
+              x2="15.836"
+              y2="7.143"
+              gradientUnits="userSpaceOnUse"
+            >
+              <stop stop-color="#FCFF1C"></stop>
+              <stop offset="1" stop-color="#FF9D0A"></stop>
+            </linearGradient>
+            <linearGradient
+              id="mediakit_icon_svg__b"
+              x1="2"
+              y1="10.022"
+              x2="12.293"
+              y2="10.022"
+              gradientUnits="userSpaceOnUse"
+            >
+              <stop stop-color="#E7CFFF"></stop>
+              <stop offset="1" stop-color="#870FFF"></stop>
+            </linearGradient>
+            <linearGradient
+              id="mediakit_icon_svg__c"
+              x1="2"
+              y1="14.615"
+              x2="22"
+              y2="14.615"
+              gradientUnits="userSpaceOnUse"
+            >
+              <stop stop-color="#03FFE5"></stop>
+              <stop offset="1" stop-color="#14B348"></stop>
+            </linearGradient>
+          </defs>
+        </svg>

@@ -5,6 +5,7 @@ import Header from "@/components/ui/header";
 import { Box } from "@chakra-ui/react";
 
 import localFont from "next/font/local";
+import SideNav from "@/components/ui/sidenav";
 
 const myFont = localFont({
   src: [
@@ -37,6 +38,8 @@ export default function RootLayout({
         <Box h={"100"} p={"16px"}>
           <Providers>
             <Header />
+
+            <SideNav />
             {children}
           </Providers>
         </Box>
