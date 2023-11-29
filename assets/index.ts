@@ -45,4 +45,19 @@ export { default as linkinbioIcon } from "./link-in-bio_icon.svg";
 
 
 
+export { default as mediakitIconlg } from "./media.svg";
+
+export { default as storeIconlg } from "./store.svg";
+
+export { default as invoicingIconlg } from "./invoice.svg";
+
+export { default as linkinbioIconlg } from "./linkinbio.svg";
+
+export { default as bookinglg } from "./booking.svg";
+export { default as appwhiteIcon } from "./appwhite.svg";
+
+
+
+
+
 

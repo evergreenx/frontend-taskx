@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { Checkbox, Box, Text, useDisclosure } from "@chakra-ui/react";
 import { expandIcon, expandLessIcon } from "@/assets";
 import Image from "next/image";
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from "uuid";
 type Option = TransactionTypeInterface | TransactionStatusInterface;
 
 interface CustomMultiSelectProps<T> {
@@ -56,7 +56,6 @@ const CustomMultiSelect = <T extends Option>({
     .join(", ");
   const displayText =
     selectedOptions.length > 0 ? selectedOptionsText : `Select ${label}`;
-
 
   return (
     <Box>

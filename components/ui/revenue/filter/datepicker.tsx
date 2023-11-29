@@ -136,7 +136,7 @@ export default function DatePicker({
           as="div"
           zIndex={999}
           position="absolute"
-          left={"20px"}
+          left={["0", "20px"]}
           w={["100%", "412px"]}
           bg="#fff"
           p="8px"

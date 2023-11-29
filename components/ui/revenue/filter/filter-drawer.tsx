@@ -17,7 +17,7 @@ import { v4 as uuidv4 } from "uuid";
 
 import "react-day-picker/dist/style.css";
 
-import MultiSelect from "./dropdown";
+import MultiSelect from "./custom-multi-select";
 
 import DatePicker from "./datepicker";
 const transactionType: TransactionTypeInterface[] = [
