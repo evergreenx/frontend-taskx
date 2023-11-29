@@ -37,6 +37,7 @@ export default function SideNav() {
     <Box
       variants={blurInVariant}
       as={motion.div}
+      zIndex={'99'}
       bg={"#fff"}
       w={"48px"}
       h={"192px"}
