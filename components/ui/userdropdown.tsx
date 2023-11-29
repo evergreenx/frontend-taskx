@@ -15,6 +15,8 @@ import {
   Box,
 } from "@chakra-ui/react";
 
+import { v4 as uuidv4 } from 'uuid';
+
 import Image from "next/image";
 
 import HeaderAvatar from "./avatar";
@@ -150,7 +152,7 @@ export default function userdropdown({
             <MenuItem
               padding={"14px 0px 14px 14px"}
               mb={"10px"}
-              key={menuIcon.name}
+              key={uuidv4()}
               _hover={{
                 background: "none",
               }}

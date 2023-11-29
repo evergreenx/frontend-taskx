@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 
-import { format, parseISO } from "date-fns";
+import { format, parseISO, startOfDay } from "date-fns";
 import { CaptionProps, DayPicker, useNavigation } from "react-day-picker";
 import { Box, Button, Flex, Icon, Text, useDisclosure } from "@chakra-ui/react";
 import { expandIcon, expandLessIcon } from "@/assets";
 import Image from "next/image";
+import { isBefore, startOfMonth, endOfMonth } from "date-fns";
 function CustomCaption(props: CaptionProps) {
   const { goToMonth, nextMonth, previousMonth } = useNavigation();
 
@@ -56,9 +57,11 @@ interface CustomMultiSelectProps {
   resetFilters: boolean;
 
   onResetComplete: () => void;
-  filterValues:string;
+  filterValues: string;
 
-  onSelectionChange: (selectedValue:string) => void;
+  onSelectionChange: (selectedValue: string) => void;
+  selectedStartDate: string;
+  selectedEndDate: string;
 }
 
 export default function DatePicker({
@@ -66,6 +69,8 @@ export default function DatePicker({
   filterValues,
   resetFilters,
   onResetComplete,
+  selectedStartDate,
+  selectedEndDate,
 }: CustomMultiSelectProps) {
   const { isOpen, onClose, onToggle } = useDisclosure();
 
@@ -88,7 +93,18 @@ export default function DatePicker({
     }
   }, [resetFilters, onResetComplete]);
 
-  const [selected, setSelected] = useState<Date | undefined>();
+  console.log(selectedStartDate, "startDate");
+  console.log(selectedEndDate, "endDate");
+
+  const [selected, setSelected] = useState<Date | undefined>(undefined);
+
+  const isDateDisabled = (date: Date) => {
+    const convertedStartDate = parseISO(selectedStartDate);
+    const startOfToday = startOfDay(convertedStartDate);
+
+    // Disable dates from before the selected start day
+    return isBefore(date, startOfToday);
+  };
 
   return (
     <Box>
@@ -131,6 +147,7 @@ export default function DatePicker({
         >
           <DayPicker
             mode="single"
+            toDate={new Date()}
             components={{
               Caption: CustomCaption,
             }}
@@ -175,6 +192,7 @@ export default function DatePicker({
               },
             }}
             selected={selected}
+            disabled={isDateDisabled}
             onSelect={(date: any) => handleDateSelect(date)}
           />
         </Box>

@@ -14,6 +14,8 @@ import {
   revenueIcon,
 } from "@/assets";
 
+import { v4 as uuidv4 } from 'uuid';
+
 import { ListItem, UnorderedList } from "@chakra-ui/react";
 
 import { motion } from "framer-motion";
@@ -102,7 +104,7 @@ export default function Header() {
         <UnorderedList display={['none' , 'flex']}>
           {links.map((link) => {
             return (
-              <Link color="" key={link.name} href={link.path}>
+              <Link color="" key={uuidv4()} href={link.path}>
                 <ListItem
                   className={
                     pathname === link.path

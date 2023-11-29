@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { Checkbox, Box, Text, useDisclosure } from "@chakra-ui/react";
 import { expandIcon, expandLessIcon } from "@/assets";
 import Image from "next/image";
-
+import { v4 as uuidv4 } from 'uuid';
 type Option = TransactionTypeInterface | TransactionStatusInterface;
 
 interface CustomMultiSelectProps<T> {
@@ -103,7 +103,7 @@ const CustomMultiSelect = <T extends Option>({
           }
         >
           {options.map((option) => (
-            <Box p={"14px"} key={option.id} display="flex" alignItems="center">
+            <Box p={"14px"} key={uuidv4()} display="flex" alignItems="center">
               <Checkbox
                 borderColor={"#DBDEE5"}
                 // bg="brand.100"

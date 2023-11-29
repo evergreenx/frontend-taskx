@@ -13,6 +13,8 @@ import {
   Flex,
 } from "@chakra-ui/react";
 
+import { v4 as uuidv4 } from 'uuid';
+
 import "react-day-picker/dist/style.css";
 
 import MultiSelect from "./dropdown";
@@ -65,6 +67,7 @@ export default function FilterModal({
   setFilterTransactionsData: any;
 }) {
   const [resetFilters, setResetFilters] = useState<boolean>(false);
+  const [startDate, setStartDate] = useState();
 
   const handleResetComplete = () => {
     setResetFilters(false); // Set back to false after reset is done
@@ -142,7 +145,7 @@ export default function FilterModal({
                   borderWidth={"1px"}
                   borderColor={"#EFF1F6"}
                   bg={"#fff"}
-                  key={i}
+                  key={uuidv4()}
                   mb={"24px"}
                   whiteSpace={"nowrap"}
                 >
@@ -171,6 +174,8 @@ export default function FilterModal({
                 onSelectionChange={(selectedValues) =>
                   handleFilter(selectedValues, "startDate")
                 }
+                selectedStartDate={filters.startDate}
+                selectedEndDate={filters.endDate}
                 onResetComplete={handleResetComplete}
               />
 
@@ -180,6 +185,8 @@ export default function FilterModal({
                 onSelectionChange={(selectedValues) =>
                   handleFilter(selectedValues, "endDate")
                 }
+                selectedStartDate={filters.startDate}
+                selectedEndDate={filters.endDate}
                 onResetComplete={handleResetComplete}
               />
             </Flex>

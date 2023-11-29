@@ -16,6 +16,7 @@ import Image from "next/image";
 import FilterModal from "./filter/filter-drawer";
 import { transactionDatax } from "./chart";
 import { isWithinInterval, parseISO } from "date-fns";
+import { v4 as uuidv4 } from 'uuid';
 
 export default function TransactionList() {
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -103,7 +104,7 @@ export default function TransactionList() {
     const filteredResult = filterData(transactionsData, filters);
     setFilterTransactionsData(filteredResult);
 
-    console.log(filteredResult);
+ 
     onClose();
   };
 
@@ -267,7 +268,7 @@ export default function TransactionList() {
               mb={"24px"}
               w={"100%"}
               justifyContent={"space-between"}
-              key={list.metadata?.name}
+              key={uuidv4()}
             >
               <Box
                 display={"flex"}
