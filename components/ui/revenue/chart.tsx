@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import API from "@/services/apiService";
 import { Box } from "@chakra-ui/react";
 import { motion } from "framer-motion";
+import { Text } from "@chakra-ui/react";
 
 import {
   Chart as ChartJS,
@@ -120,9 +121,6 @@ export default function Chart({
     visible: { opacity: 1, transition: { duration: 1.5 } },
   };
 
-  if (isLoading) {
-    return "loading";
-  }
 
   return (
     <Box
@@ -132,7 +130,15 @@ export default function Chart({
       as={motion.div}
       w={["100%", "765px"]}
     >
+
+      {
+        data?.length === 0 ?   <Text color="brand.100" mt={'100px'} textAlign="center" fontSize="18px">
+        No data available for the chart.
+      </Text> : (
       <Line options={options} data={dataChart} />
+
+        )
+      }
     </Box>
   );
 }

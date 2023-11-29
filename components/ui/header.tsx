@@ -50,17 +50,19 @@ const links: LinksInterface[] = [
     path: "/CRM",
   },
 
-  {
-    name: "apps",
-    iconPath: appsIcon,
-    path: "/apps",
-  },
+  // {
+  //   name: "apps",
+  //   iconPath: appsIcon,
+  //   path: "/apps",
+  // },
 ];
 
 export default function Header() {
   const pathname = usePathname();
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [userData, setUserData] = useState<UserDataInterface | null>(null);
+
+  console.log(pathname)
 
   useEffect(() => {
     const fetchuser = async () => {
@@ -104,7 +106,10 @@ export default function Header() {
         <UnorderedList display={["none", "flex"]}>
           {links.map((link) => {
             return (
-              <Link color="" key={uuidv4()} href={link.path}>
+          
+
+              <>
+                  <Link color="" key={uuidv4()} href={link.path}>
                 <ListItem
                   className={
                     pathname === link.path
@@ -132,9 +137,43 @@ export default function Header() {
                   <Text ml={"4px"}>{link.name}</Text>
                 </ListItem>
               </Link>
+
+
+        
+
+              {/* show apps */}
+
+
+
+              </>
             );
           })}
         </UnorderedList>
+        <Box
+                
+                  _hover={{
+                    background: '#EFF1F6'
+                  }}
+                  borderRadius={"100px"}
+                  display={"flex"}
+                  alignItems={"center"}
+                  justifyItems={"center"}
+                  color={  'brand.100'}
+                  textTransform={"capitalize"}
+                  fontWeight={"600"}
+                  fontSize={"16px"}
+                  mr={"20px"}
+                  p={"8px 14px 8px 18px"}
+                >
+
+
+<Box>
+                    <Image src={appsIcon} alt={'app'} />
+                  </Box>
+
+                  <Text ml={"4px"}>Apps</Text>
+                  </Box>
+
       </Box>
 
       <Flex
