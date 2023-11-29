@@ -14,39 +14,19 @@ import { Badge } from "@chakra-ui/react";
 
 import Image from "next/image";
 import FilterModal from "./filter/filter-drawer";
-import { transactionDatax } from "./chart";
 import { isWithinInterval, parseISO } from "date-fns";
 import { v4 as uuidv4 } from 'uuid';
 
-export default function TransactionList() {
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [transactionsData, setTransactionsData] = useState<
-    TransactioniInterface[] | undefined
-  >(transactionDatax);
+export default function TransactionList({
+  setFilterTransactionsData,
+  filtertransactionsData,
+  transactionsData
+}: any) {
 
-  const [filtertransactionsData, setFilterTransactionsData] =
-    useState(transactionsData);
 
-  useEffect(() => {
-    if (transactionsData) {
-      setFilterTransactionsData(transactionsData);
-    }
-  }, [transactionsData]);
 
-  useEffect(() => {
-    const fetchTransactions = async () => {
-      try {
-        const response = await API.getTransactionlList();
+ 
 
-        setTransactionsData(response);
-      } catch (error) {
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchTransactions();
-  }, []);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -107,10 +87,6 @@ export default function TransactionList() {
  
     onClose();
   };
-
-  if (isLoading) {
-    return "loading transaction";
-  }
 
   return (
     <Box>
@@ -261,7 +237,7 @@ export default function TransactionList() {
       {/* list */}
 
       <UnorderedList margin={0} mt={"33px"} pb={"20px"}>
-        {filtertransactionsData?.map((list) => {
+        {filtertransactionsData?.map((list:any) => {
           return (
             <ListItem
               display={"flex"}

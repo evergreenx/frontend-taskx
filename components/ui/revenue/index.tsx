@@ -9,10 +9,20 @@ import { blurInVariant } from "@/variant";
 import Transaction from "./transaction";
 
 export default function RevenueContainer() {
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [isLoadingWalletData, setIsLoadingWalletData] = useState<boolean>(true);
+  const [isLoadingTransaction, setIsLoadingTransaction] =
+    useState<boolean>(true);
+
+  const [transactionsData, setTransactionsData] = useState<
+    TransactioniInterface[] | undefined
+  >();
   const [walletDetails, setWalletDetails] = useState<
     WalletDetailsInterface | undefined
   >(undefined);
+
+  const [filtertransactionsData, setFilterTransactionsData] =
+    useState(transactionsData);
+  // fetch wallet details
 
   useEffect(() => {
     const fetchWalletDetails = async () => {
@@ -22,16 +32,39 @@ export default function RevenueContainer() {
         setWalletDetails(response);
       } catch (error) {
       } finally {
-        setIsLoading(false);
+        setIsLoadingWalletData(false);
       }
     };
 
     fetchWalletDetails();
   }, []);
 
+  useEffect(() => {
+    if (transactionsData) {
+      setFilterTransactionsData(transactionsData);
+    }
+  }, [transactionsData]);
+
+  // fetch transaction
+
+  useEffect(() => {
+    const fetchTransactions = async () => {
+      try {
+        const response = await API.getTransactionlList();
+
+        setTransactionsData(response);
+      } catch (error) {
+      } finally {
+        setIsLoadingTransaction(false);
+      }
+    };
+
+    fetchTransactions();
+  }, []);
+
   return (
     <>
-      {isLoading ? (
+      {isLoadingWalletData ? (
         "loading wallets data"
       ) : (
         <Flex
@@ -42,14 +75,24 @@ export default function RevenueContainer() {
           flexDirection={["column", "row"]}
           justifyContent={"space-between"}
         >
-          <AvailableBalance balance={walletDetails?.balance} />
+          <AvailableBalance
+            data={filtertransactionsData}
+            balance={walletDetails?.balance}
+          />
 
           <RevenueInfo data={walletDetails} />
         </Flex>
       )}
 
-      <Transaction />
-      
+      {isLoadingWalletData ? (
+        "loading your transaction"
+      ) : (
+        <Transaction
+          setFilterTransactionsData={setFilterTransactionsData}
+          filtertransactionsData={filtertransactionsData}
+          transactionsData={transactionsData}
+        />
+      )}
     </>
   );
 }

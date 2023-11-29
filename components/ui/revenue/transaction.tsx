@@ -6,7 +6,12 @@ import TransactionList from "./transaction-list";
 import { blurInVariant } from "@/variant";
 import { motion } from "framer-motion";
 
-export default function Transaction() {
+export default function Transaction({
+  transactionsData,
+  setFilterTransactionsData,
+  filtertransactionsData
+
+}: any) {
   return (
     <Box
       as={motion.div}
@@ -16,7 +21,11 @@ export default function Transaction() {
     >
       {/* transaction list */}
 
-      <TransactionList />
+      <TransactionList 
+      
+      setFilterTransactionsData={setFilterTransactionsData}
+      filtertransactionsData={filtertransactionsData}
+      transactionsData={transactionsData} />
     </Box>
   );
 }

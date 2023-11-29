@@ -9,6 +9,8 @@ import { Box, Tooltip } from "@chakra-ui/react";
 import React from "react";
 import Image from "next/image";
 import { v4 as uuidv4 } from "uuid";
+import { motion } from "framer-motion";
+import { blurInVariant, dropVariant } from "@/variant";
 
 const sidenavLinks = [
   {
@@ -33,6 +35,8 @@ const sidenavLinks = [
 export default function SideNav() {
   return (
     <Box
+      variants={blurInVariant}
+      as={motion.div}
       bg={"#fff"}
       w={"48px"}
       h={"192px"}
@@ -70,7 +74,6 @@ export default function SideNav() {
                 _hover={{
                   filter: "none",
                   background: "#EFF1F6",
-                  
                 }}
                 p={"8px"}
                 mb={"8px"}

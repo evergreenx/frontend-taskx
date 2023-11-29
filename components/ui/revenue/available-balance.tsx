@@ -4,8 +4,10 @@ import Chart from "./chart";
 
 export default function AvailableBalance({
   balance,
+  data
 }: {
   balance: number | undefined;
+  data : any
 }) {
   return balance ? (
     <Box>
@@ -41,7 +43,7 @@ export default function AvailableBalance({
         </Button>
       </Box>
 
-      <Chart />
+      <Chart data={data} />
     </Box>
   ) : null;
 }
