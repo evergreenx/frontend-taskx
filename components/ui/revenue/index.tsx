@@ -9,6 +9,8 @@ import { blurInVariant } from "@/variant";
 import Transaction from "./transaction";
 import { Text } from "@chakra-ui/react";
 
+import { Spinner } from "@chakra-ui/react";
+
 export default function RevenueContainer() {
   const [isLoadingWalletData, setIsLoadingWalletData] = useState<boolean>(true);
   const [isLoadingTransaction, setIsLoadingTransaction] =
@@ -66,10 +68,14 @@ export default function RevenueContainer() {
   return (
     <>
       {isLoadingWalletData ? (
-        <Text>
-loading wallets data
+      <Flex
+      
+      justifyContent={'center'}
+      
+      >
+      <Spinner thickness="4px" size="xl" />
 
-        </Text>
+      </Flex>
       ) : (
         <Flex
           as={motion.div}
@@ -90,11 +96,14 @@ loading wallets data
 
       {isLoadingWalletData ? (
 
-        <Text>
+<Flex
+      
+justifyContent={'center'}
 
-loading your transaction
+>
+        <Spinner thickness="4px" mt={100} size="xl" />
 
-        </Text>
+        </Flex>
       ) : (
         <Transaction
           setFilterTransactionsData={setFilterTransactionsData}

@@ -15,7 +15,7 @@ import {
   Box,
 } from "@chakra-ui/react";
 
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from "uuid";
 
 import Image from "next/image";
 
@@ -30,6 +30,7 @@ import {
   signoutIcon,
   switchIcon,
 } from "@/assets";
+import { getAbbreviation } from "@/utils";
 
 interface menuOptionsInterface {
   name: string;
@@ -95,7 +96,9 @@ export default function userdropdown({
           borderRadius={"100px"}
           bg={"#EFF1F6"}
         >
-          <HeaderAvatar />
+          <HeaderAvatar
+            name={getAbbreviation(data?.first_name + " " + data?.last_name)}
+          />
 
           <Image src={menuIcon} alt="chaticon" />
         </Flex>
@@ -131,7 +134,7 @@ export default function userdropdown({
                 fontWeight={"600"}
                 bgGradient="linear(to-l, #FFF , #F2F3F5 )"
               >
-                OJ
+                {getAbbreviation(data?.first_name + " " + data?.last_name)}
               </Text>
             </Box>
 
