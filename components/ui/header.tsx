@@ -66,8 +66,6 @@ const links: LinksInterface[] = [
     iconPath: crmIcon,
     path: "/CRM",
   },
-
-
 ];
 
 export default function Header() {
@@ -184,6 +182,7 @@ export default function Header() {
               fontSize={"16px"}
               w={"100%"}
               // mr={"20px"}
+
               bg={selectedApp ? "brand.300" : "transparent"}
             >
               <Flex alignItems={"center"} p={"8px 14px"}>
@@ -238,11 +237,14 @@ export default function Header() {
 
           <MenuList
             w={["100%", "400px"]}
+            position={"relative"}
+            top={"15px"}
             borderRadius={"1.25rem"}
             border={" 0.125rem solid #fff"}
             boxShadow="rgba(219, 222, 229, 0.08) 0px 16px 32px 12px, rgba(129, 139, 165, 0.08) 0px 12px 24px 6px"
             // backdropFilter={'blur(8px)'}
             backdropBlur="8px"
+            role="group"
             p={"8px"}
           >
             <AppNavigation setSelectedApp={setSelectedApp} />
@@ -311,7 +313,7 @@ const AppNavigation = ({
 }: {
   setSelectedApp: React.Dispatch<React.SetStateAction<string | null>>;
 }) => {
-  const [hoveredIndex, setHoveredIndex] = useState(null);
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   return (
     <>
       {menuOptions.map((menuOption, indx) => {
@@ -322,11 +324,10 @@ const AppNavigation = ({
             onClick={() => {
               setSelectedApp(menuOption.title);
             }}
-            // mb={"8px"}
-
-            // onMouseEnter={() => setHoveredIndex(indx)}
-            // onMouseLeave={() => setHoveredIndex(null)}
-            key={uuidv4()}
+            mb={"8px"}
+            onMouseEnter={() => setHoveredIndex(indx)}
+            onMouseLeave={() => setHoveredIndex(null)}
+            key={indx}
             _hover={{
               background: "none",
               transition: "background-color 0.3s ease",
@@ -334,9 +335,6 @@ const AppNavigation = ({
 
               boxShadow: "rgba(188, 196, 204, 0.12) 0px 12px 24px 8px",
               border: "2px solid rgb(239, 241, 246)",
-              // "& > div > div > svg": {
-              //   visibility: "visible", // Show the icon on hover
-              // },
             }}
             _focus={{
               background: "none",
@@ -345,24 +343,43 @@ const AppNavigation = ({
               background: "none",
             }}
           >
-            <Flex alignItems={"center"}>
-              <Box
-                borderRadius={"12px"}
-                border={"1px solid #EFF1F6"}
-                boxShadow={" 0px 12px 24px 8px rgba(188, 196, 204, 0.12)"}
-              >
-                <Image src={menuOption.icon} alt={menuIcon.name} />
-              </Box>
+            <Flex
+              w="100%"
+              justifyContent={"space-between"}
+              alignItems={"center"}
+            >
+              <Flex>
+                <Box
+                  display={"flex"}
+                  alignItems={"center"}
+                  justifyContent={"center"}
+                  borderRadius={"12px"}
+                  border={"1px solid #EFF1F6"}
+                  boxShadow={" 0px 12px 24px 8px rgba(188, 196, 204, 0.12)"}
+                  h={"3rem"}
+                  w={"3rem"}
+                >
+                  <Image src={menuOption.icon} alt={menuIcon.name} />
+                </Box>
 
-              <Box ml={"12px"}>
-                <Text fontWeight={"600"} color={"brand.300"} fontSize={"16px"}>
-                  {menuOption.title}
-                </Text>
+                <Box ml={"12px"}>
+                  <Text
+                    fontWeight={"600"}
+                    color={"brand.300"}
+                    fontSize={"16px"}
+                  >
+                    {menuOption.title}
+                  </Text>
 
-                <Text fontWeight={"500"} color={"brand.100"} fontSize={"14px"}>
-                  {menuOption.subtitle}
-                </Text>
-              </Box>
+                  <Text
+                    fontWeight={"500"}
+                    color={"brand.100"}
+                    fontSize={"14px"}
+                  >
+                    {menuOption.subtitle}
+                  </Text>
+                </Box>
+              </Flex>
 
               {hoveredIndex === indx && (
                 <Box>
